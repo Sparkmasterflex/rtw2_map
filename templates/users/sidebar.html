@@ -1,0 +1,25 @@
+<div class="sidebar-group">
+  <label for="selct-empire">Select Empire</label>
+  <select name="current-empire" id="select-empire"></select>
+  <div class="selected">
+    <img src="/images/factions/{{ empire }}.png" alt="{{ empire }}" title="{{ empire }}" />
+    <p>{{ empire }}</p>
+  </div>
+</div>
+
+<div class="sidebar-group">
+  <h3>{{ name }}'s Empire</h3>
+  <h4>{{ empire }}</h4>
+
+  <ul>
+    <li>Current Turn {{ turn }}</li>
+    <li class='region-count'>Total Regions: {{ regions }}</li>
+  </ul>
+</div>
+
+<div class="regions-list sidebar-group">
+  <h4>Regions Held</h4>
+  <ul>
+    <li class="empty-list">None</li>
+  </ul>
+</div>

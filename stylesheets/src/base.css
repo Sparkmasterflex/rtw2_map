@@ -1,0 +1,58 @@
+@import "http://meyerweb.com/eric/tools/css/reset/reset.css";
+html, body {
+  height: 100%; }
+
+body {
+  font-size: 62.5%;
+  font-family: Arial, Tahoma, san-serif;
+  background: #333333 url(/images/rtw2-body-bg.jpg) no-repeat left top;
+  background-size: 100% auto;
+  -webkit-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  -ms-background-size: 100% auto; }
+
+section {
+  width: 100%;
+  max-width: 120em;
+  margin: 0 auto; }
+
+h1, .h1 {
+  font-size: 3.6em; }
+
+h2, .h2 {
+  font-size: 3.0em; }
+
+h3, .h3 {
+  font-size: 2.4em; }
+
+h4, .h4 {
+  font-size: 2.0em; }
+
+p, li, a {
+  font-size: 1.6em; }
+  p p, p li, p a, li p, li li, li a, a p, a li, a a {
+    font-size: 1em; }
+
+#map_container {
+  position: relative; }
+  #map_container aside.user-sidebar {
+    position: absolute;
+    top: 0;
+    right: 3em;
+    z-index: 200; }
+    #map_container aside.user-sidebar .sidebar-group {
+      width: 28em;
+      padding: 2em;
+      margin: 0 0 2em;
+      background: url(/images/aside-bg.jpg) repeat top left;
+      border: 3px solid #777;
+      -moz-box-shadow: 0 0 10px 0.8;
+      -o-box-shadow: 0 0 10px 0.8;
+      -webkit-box-shadow: 0 0 10px 0.8;
+      box-shadow: 0 0 10px 0.8; }
+      #map_container aside.user-sidebar .sidebar-group.regions-list {
+        min-height: 28.7em; }
+        #map_container aside.user-sidebar .sidebar-group.regions-list ul {
+          max-height: 26em;
+          overflow-y: auto; }
