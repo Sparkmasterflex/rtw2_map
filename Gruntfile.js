@@ -8,7 +8,8 @@ module.exports = function(grunt) {
         files: {
           'stylesheets/src/base.css': 'stylesheets/sass/base.scss',
           'stylesheets/src/structures.css': 'stylesheets/sass/structures.scss',
-          'stylesheets/src/skins.css': 'stylesheets/sass/skins.scss'
+          'stylesheets/src/skins.css': 'stylesheets/sass/skins.scss',
+          'stylesheets/src/forms.css': 'stylesheets/sass/forms.scss'
         }
       },
       options: {

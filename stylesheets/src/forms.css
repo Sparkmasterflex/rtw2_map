@@ -1,0 +1,47 @@
+.field {
+  width: 100%;
+  margin: 1em 0 1.5em; }
+
+.two-col .field {
+  float: left;
+  width: 45%;
+  margin-left: 5%; }
+  .two-col .field:first-child {
+    margin-left: 0; }
+  .two-col .field input {
+    width: 60%; }
+
+label {
+  display: block;
+  float: left;
+  font-size: 1.6em;
+  width: 30%; }
+
+input {
+  width: 65%; }
+
+select {
+  width: 69%; }
+
+input, select {
+  float: left;
+  font-size: 2.1em;
+  padding: 0.25em 0.5em;
+  -webkit-appearance: none;
+  background: rgba(153, 153, 153, 0.5);
+  border: 1px solid #333;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px; }
+
+input[type=submit] {
+  float: none;
+  background: #999;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.25s ease-in-out 0s;
+  -webkit-transition: background 0.25s ease-in-out 0s;
+  -moz-transition: background 0.25s ease-in-out 0s;
+  -o-transition: background 0.25s ease-in-out 0s; }
+  input[type=submit]:hover {
+    background: rgba(153, 153, 153, 0.75); }

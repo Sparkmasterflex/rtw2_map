@@ -1,11 +1,25 @@
 @import "http://meyerweb.com/eric/tools/css/reset/reset.css";
 @import "mixins";
 
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
 
 html,body { height: 100%; }
 
 body {
   font: { size: 62.5%; family: Arial, Tahoma, san-serif; }
+  color: #333;
   background: #333 url(/images/rtw2-body-bg.jpg) no-repeat left top;
   @include bg-size(100%, auto);
 }
@@ -25,6 +39,7 @@ p, li, a { font-size: 1.6em;
   p, li, a { font-size: 1em; }
 }
 
+
 #map_container {
   position: relative;
   aside.user-sidebar {
@@ -36,16 +51,29 @@ p, li, a { font-size: 1.6em;
       width: 28em;
       padding: 2em;
       margin: 0 0 2em;
-      background: url(/images/aside-bg.jpg) repeat top left;
-      border: 3px solid #777;
-      @include box-shadow(0,0,10px,0.8);
-      &.regions-list {
-        min-height: 28.7em;
-        ul {
-          max-height: 26em;
-          overflow-y: auto;
-        }
+      ul li { margin: 0.25em 0; }
+      .regions-list {
+        margin-top: 2em;
+        min-height: 27em;
+        ul { max-height: 25em; overflow-y: auto; }
       }
     }
   }
+}
+
+.selected {
+  margin: 0 0 2.5em;
+  img, h3 { float: left; }
+  img { width: 20%; }
+  h3 {
+    width: 70%;
+    padding: 0.65em 0.5em;
+  }
+}
+
+.form-header {
+  margin:  0 0 0.5em;
+  padding: 0 0 0.5em;
+  text-align: center;
+  border-bottom: 1px solid #333;
 }

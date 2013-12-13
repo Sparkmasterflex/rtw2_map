@@ -57,6 +57,7 @@ define [
     select_current_empire: (e) ->
       val = $(e.target).val()
       this.selected = this.empire_data[val]
+      this.$('.selected h3').html val
       this.$('.selected img').attr
         src: "/images/factions/#{val}.png"
         title: val

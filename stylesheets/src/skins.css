@@ -13,3 +13,11 @@
   background: linear-gradient(top, rgba(255, 255, 255, 0.8) 0%, rgba(238, 238, 238, 0.9) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.8)), color-stop(100%, rgba(238, 238, 238, 0.9)));
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$c1', endColorstr='$c2',GradientType=0 ); }
+
+.textured {
+  background: url(/images/textured-bg.png) repeat top left;
+  border: 3px solid #777;
+  -moz-box-shadow: 0 0 10px 0.8;
+  -o-box-shadow: 0 0 10px 0.8;
+  -webkit-box-shadow: 0 0 10px 0.8;
+  box-shadow: 0 0 10px 0.8; }

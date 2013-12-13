@@ -1,25 +1,27 @@
-<div class="sidebar-group">
-  <label for="selct-empire">Select Empire</label>
-  <select name="current-empire" id="select-empire"></select>
-  <div class="selected">
+<div class="sidebar-group textured">
+  <div class="selected clearfix">
     <img src="/images/factions/{{ empire }}.png" alt="{{ empire }}" title="{{ empire }}" />
-    <p>{{ empire }}</p>
+    <h3>{{ empire }}</h3>
+  </div>
+  <div class="field clearfix">
+    <label for="selct-empire">Select Empire &rarr;</label>
+    <select name="current-empire" id="select-empire"></select>
   </div>
 </div>
 
-<div class="sidebar-group">
+<div class="sidebar-group textured">
   <h3>{{ name }}'s Empire</h3>
   <h4>{{ empire }}</h4>
 
   <ul>
-    <li>Current Turn {{ turn }}</li>
+    <li>Current Turn: {{ turn }}</li>
     <li class='region-count'>Total Regions: {{ regions }}</li>
   </ul>
-</div>
 
-<div class="regions-list sidebar-group">
-  <h4>Regions Held</h4>
-  <ul>
-    <li class="empty-list">None</li>
-  </ul>
+  <div class="regions-list">
+    <h4 class="form-header">Regions Held</h4>
+    <ul>
+      <li class="empty-list">None</li>
+    </ul>
+  </div>
 </div>

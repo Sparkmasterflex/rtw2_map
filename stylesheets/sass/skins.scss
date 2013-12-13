@@ -5,3 +5,9 @@
 
 
 .whitebox { @include gradient-two(rgba(#fff, 0.8), rgba(#eee, 0.9)); }
+
+.textured {
+  background: url(/images/textured-bg.png) repeat top left;
+  border: 3px solid #777;
+  @include box-shadow(0,0,10px,0.8);
+}
