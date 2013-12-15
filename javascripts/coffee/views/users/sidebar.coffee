@@ -28,7 +28,7 @@ define [
 
     setup_empire_select: ->
       _.each this.empire_data, (value, key) =>
-        $option = $("<option value='#{key}'>#{key}</option>")
+        $option = $("<option value='#{key}'>#{value.title}</option>")
         $option.attr('selected', true) if key is this.empire
         @.$('select#select-empire').append $option
 
@@ -44,12 +44,21 @@ define [
           $li.remove()
           this.region_count -= 1
         else
-          this.$(".regions-list ul").append "<li data-region='#{region}'>#{region}</li>"
+          this.$(".regions-list ul").prepend "<li data-region='#{region}'>#{this.humanize(region)}</li>"
           this.region_count += 1
         this.model.set {regions: this.region_count}
 
     update_region_count: ->
       this.$('li.region-count').html "Total Regions: #{this.region_count}"
+
+    humanize: (string) ->
+      humanized = ""
+      arr = string.split('_')
+      _.each arr, (str) => humanized += "#{str.charAt(0).toUpperCase()}#{str.slice(1)} "
+
+      humanized
+
+
 
     ###========================
                EVENTS
@@ -57,11 +66,12 @@ define [
     select_current_empire: (e) ->
       val = $(e.target).val()
       this.selected = this.empire_data[val]
-      this.$('.selected h3').html val
+      console.log this.selected
+      this.$('.selected h3').html this.selected.title
       this.$('.selected img').attr
         src: "/images/factions/#{val}.png"
-        title: val
-        alt: val
+        title: this.selected.title
+        alt: this.selected.title
       this.parent.selected = this.selected
 
   Sidebar

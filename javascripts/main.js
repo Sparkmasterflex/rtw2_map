@@ -9,7 +9,8 @@
       templates: '../templates',
       Handlebars: 'vendor/handlebars',
       text: 'vendor/text',
-      hbars: 'vendor/hbars'
+      hbars: 'vendor/hbars',
+      html2canvas: 'vendor/html2canvas'
     },
     shim: {
       'backbone': {
@@ -21,6 +22,10 @@
       },
       'Handlebars': {
         exports: 'Handlebars'
+      },
+      'html2canvas': {
+        exports: 'html2canvas',
+        deps: ['jquery']
       },
       'maphilight': {
         deps: ['jquery'],

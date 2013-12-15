@@ -8,6 +8,7 @@ require.config
     Handlebars: 'vendor/handlebars'
     text: 'vendor/text'
     hbars: 'vendor/hbars'
+    html2canvas: 'vendor/html2canvas'
 
   shim:
     'backbone':
@@ -17,6 +18,9 @@ require.config
       exports: '_'
     'Handlebars':
       exports: 'Handlebars'
+    'html2canvas':
+      exports: 'html2canvas'
+      deps: ['jquery']
     'maphilight':
       deps: ['jquery']
       exports: 'jQuery.fn.maphilight'

@@ -26,7 +26,7 @@
         var _this = this;
         return _.each(this.empire_data, function(value, key) {
           var $option;
-          $option = $("<option value='" + key + "'>" + key + "</option>");
+          $option = $("<option value='" + key + "'>" + value.title + "</option>");
           if (key === _this.empire) $option.attr('selected', true);
           return _this.$('select#select-empire').append($option);
         });
@@ -46,7 +46,7 @@
             $li.remove();
             this.region_count -= 1;
           } else {
-            this.$(".regions-list ul").append("<li data-region='" + region + "'>" + region + "</li>");
+            this.$(".regions-list ul").prepend("<li data-region='" + region + "'>" + (this.humanize(region)) + "</li>");
             this.region_count += 1;
           }
           return this.model.set({
@@ -57,6 +57,16 @@
       update_region_count: function() {
         return this.$('li.region-count').html("Total Regions: " + this.region_count);
       },
+      humanize: function(string) {
+        var arr, humanized,
+          _this = this;
+        humanized = "";
+        arr = string.split('_');
+        _.each(arr, function(str) {
+          return humanized += "" + (str.charAt(0).toUpperCase()) + (str.slice(1)) + " ";
+        });
+        return humanized;
+      },
       /*========================
                  EVENTS
       ========================
@@ -65,11 +75,12 @@
         var val;
         val = $(e.target).val();
         this.selected = this.empire_data[val];
-        this.$('.selected h3').html(val);
+        console.log(this.selected);
+        this.$('.selected h3').html(this.selected.title);
         this.$('.selected img').attr({
           src: "/images/factions/" + val + ".png",
-          title: val,
-          alt: val
+          title: this.selected.title,
+          alt: this.selected.title
         });
         return this.parent.selected = this.selected;
       }

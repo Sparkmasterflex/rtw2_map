@@ -31,9 +31,14 @@
         });
       },
       set_user_attributes: function() {
-        var _this = this;
-        return $.each(this.$('input, select'), function(i, elm) {
+        var emp,
+          _this = this;
+        $.each(this.$('input, select'), function(i, elm) {
           return _this.model.set($(elm).attr('name'), $(elm).val());
+        });
+        emp = this.model.get('empire');
+        return this.model.set({
+          humanized_empire: "" + (emp.charAt(0).toUpperCase()) + (emp.slice(1))
         });
       },
       /*=======================

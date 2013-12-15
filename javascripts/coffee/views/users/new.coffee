@@ -38,6 +38,8 @@ define [
 
     set_user_attributes: ->
       $.each this.$('input, select'), (i, elm) => @model.set $(elm).attr('name'), $(elm).val()
+      emp = this.model.get('empire')
+      this.model.set {humanized_empire: "#{emp.charAt(0).toUpperCase()}#{emp.slice(1)}"}
 
 
     ###=======================

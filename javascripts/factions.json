@@ -1,52 +1,64 @@
 {
   "rome": {
     "regions": ["roma", "neapolis", "brundisium", "cosentia"],
-    "color": "8D0000"
+    "color": "8D0000",
+    "title": "Rome"
   },
   "carthage": {
     "regions": ["carthago", "lilybaeum", "karalis", "qart_hadasht"],
     "color": "fffffff",
-    "border": "914C4C"
+    "border": "914C4C",
+    "title": "Carthage"
   },
   "egypt": {
     "regions": ["alexandria", "memphis", "diospolis", "myos_hormos", "jerusalem", "petra"],
-    "color": "1818AC"
+    "color": "1818AC",
+    "title": "Egypt"
   },
   "athens": {
     "regions": ["athenai"],
     "color": "fffffff",
-    "border": "7d7ee0"
+    "border": "7d7ee0",
+    "title": "Athens"
   },
   "sparta": {
     "regions": ["sparta"],
-    "color": "4E0000"
+    "color": "4E0000",
+    "title": "Sparta"
   },
   "epirus": {
     "regions": ["apollonia", "larissa"],
-    "color": "C2713A"
+    "color": "C2713A",
+    "title": "Epirus"
   },
   "pontus": {
     "regions": ["sinope", "amaseia"],
-    "color": "FDBB1E"
+    "color": "FDBB1E",
+    "title": "Pontus"
   },
   "iceni": {
     "regions": ["camulodunon"],
-    "color": "0D3D78"
+    "color": "0D3D78",
+    "title": "Iceni"
   },
   "macedon": {
     "regions": ["pella", "pulpudeva"],
-    "color": "201D16"
+    "color": "201D16",
+    "title": "Macedon"
   },
   "arverni": {
     "regions": ["nemossos"],
-    "color": "163307"
+    "color": "163307",
+    "title": "Arverni"
   },
   "suebi": {
     "regions": ["lupfurdum"],
-    "color": "7A1638"
+    "color": "7A1638",
+    "title": "Suebi"
   },
   "parthia": {
     "regions": ["nisa"],
-    "color": "471378"
+    "color": "471378",
+    "title": "Parthia"
   }
 }

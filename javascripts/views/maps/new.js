@@ -1,11 +1,14 @@
 (function() {
+  var __slice = Array.prototype.slice;
 
-  define(['jquery', 'underscore', 'backbone', 'models/map', 'models/user', 'views/users/sidebar', 'hbars!templates/maps/map'], function($, _, Backbone, Map, User, Sidebar, newMap) {
+  define(['jquery', 'underscore', 'backbone', 'html2canvas', 'models/map', 'models/user', 'views/users/sidebar', 'hbars!templates/maps/map'], function($, _, Backbone, html2canvas, Map, User, Sidebar, newMap) {
     var NewMap;
     NewMap = Backbone.View.extend({
       el: "#content section",
       events: {
-        "click area.region": "highlight_region"
+        "click area.region": "highlight_region",
+        "click a.screen-shot": "take_screen_shot",
+        "click a.save-progress": "save_and_generate_link"
       },
       initialize: function(options) {
         _.bindAll(this, 'render');
@@ -13,6 +16,7 @@
           name: "Keith Raymond",
           turn: 1,
           empire: 'carthage',
+          humanized_empire: 'Carthage',
           regions: 4
         });
       },
@@ -64,6 +68,17 @@
         data.alwaysOn = true;
         return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
       },
+      update_empire_data: function(region, add) {
+        var current_data, current_emp, i;
+        current_emp = this.selected.title.toLowerCase();
+        current_data = this.empire_information[current_emp];
+        i = _.indexOf(current_data.regions, region);
+        if (i >= 0) {
+          return current_data.regions.splice(i, 1);
+        } else {
+          return current_data.regions.push(region);
+        }
+      },
       /*=============================
                   EVENTS
       =============================
@@ -75,6 +90,7 @@
         if (!((data.fillColor != null) && data.fillColor !== this.selected.color)) {
           this.sidebar.add_remove_region($area.attr('id'));
         }
+        this.update_empire_data($area.attr('id'), !data.fillColor);
         if (data.fillColor) {
           delete data.fillColor;
           delete data.strokeColor;
@@ -85,6 +101,56 @@
           data.alwaysOn = true;
         }
         return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
+      },
+      take_screen_shot: function(e) {
+        var _this = this;
+        html2canvas(this.$('#map > div'), {
+          onrendered: function(canvas) {
+            var ctx, dataURL, extra_canvas, filename;
+            $(e.target).replaceWith("<a href='#download_image' class='download-image'>Download Image</a>");
+            filename = "" + (_this.user.get('name')) + "_" + (_this.user.get('empire')) + ".png";
+            extra_canvas = document.createElement("canvas");
+            extra_canvas.setAttribute('width', 828);
+            extra_canvas.setAttribute('height', 681);
+            ctx = extra_canvas.getContext('2d');
+            ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 828, 681);
+            dataURL = extra_canvas.toDataURL();
+            return $('a.download-image').attr({
+              href: dataURL,
+              download: filename.replace(/\s/, '_')
+            });
+          }
+        });
+        return false;
+      },
+      save_and_generate_link: function(e) {
+        var d, filename, timestamp, user_json;
+        d = new Date();
+        timestamp = "" + (d.getFullYear()) + (d.getMonth()) + (d.getDate()) + (d.getTime());
+        filename = "" + (this.user.get('name').replace(/\s/, '_')) + "_" + (this.user.get('empire')) + "_" + timestamp + ".json";
+        user_json = {
+          user: this.user.toJSON(),
+          factions: this.empire_information
+        };
+        $.ajax({
+          url: '/share_map.php',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            content: JSON.stringify(user_json),
+            filename: filename
+          },
+          success: function(response) {
+            var url;
+            return url = "http://totalwar.ifkeithraymond.com/%23maps/" + (filename.replace(/\.json$/, ''));
+          },
+          error: function() {
+            var err, other, response;
+            response = arguments[0], err = arguments[1], other = 3 <= arguments.length ? __slice.call(arguments, 2) : [];
+            return $(e.target).hide().after("<p>Something went wrong :(</p>");
+          }
+        });
+        return false;
       }
     });
     return NewMap;
