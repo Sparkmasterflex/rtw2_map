@@ -1,21 +1,28 @@
-<div class="sidebar-group textured">
-  <div class="selected clearfix">
-    <img src="/images/factions/{{ empire }}.png" alt="{{ empire }}" title="{{ empire }}" />
-    <h3>{{ humanized_empire }}</h3>
+{{#if allow_edit }}
+  <div class="sidebar-group textured">
+    <div class="selected clearfix">
+      <img src="/images/factions/{{ empire }}.png" alt="{{ empire }}" title="{{ empire }}" />
+      <h3>{{ humanized_empire }}</h3>
+    </div>
+    <div class="field clearfix">
+      <label for="selct-empire">Select Empire &rarr;</label>
+      <select name="current-empire" id="select-empire"></select>
+    </div>
   </div>
-  <div class="field clearfix">
-    <label for="selct-empire">Select Empire &rarr;</label>
-    <select name="current-empire" id="select-empire"></select>
-  </div>
-</div>
+{{/if}}
 
 <div class="sidebar-group textured">
   <h3>{{ name }}'s Empire</h3>
-  <h4>{{ humanized_empire }}</h4>
+  <h4 class='{{ empire }} with-flag'>{{ humanized_empire }}</h4>
 
-  <ul>
+  <ul class='details'>
     <li>Current Turn: {{ turn }}</li>
     <li class='region-count'>Total Regions: {{ regions }}</li>
+    {{#if allow_edit }}
+      <li><a class='save-progress share with-icon' href="#save_progress">Tweet it!</a></li>
+      <li><a class='screen-shot download with-icon' href="#map">Download Map</a></li>
+      <li><a href="/" class="restart with-icon">restart</a></li>
+    {{/if}}
   </ul>
 
   <div class="regions-list">

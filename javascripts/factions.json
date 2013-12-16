@@ -60,5 +60,54 @@
     "regions": ["nisa"],
     "color": "471378",
     "title": "Parthia"
+  },
+  "seleucid": {
+    "regions": ["edessa", "tarsus", "antioch", "dura", "palmyra", "tyros"],
+    "color": "cec1bc",
+    "border": "7c6db9",
+    "title": "Seleucid"
+  },
+  "baktria": {
+    "regions": ["maracanda","bukhara"],
+    "color": "6b88ab",
+    "border": "ae2d1f",
+    "title": "Baktria"
+  },
+  "massagetae": {
+    "regions": ["aktau"],
+    "color": "d9e1a4",
+    "border": "9d5043",
+    "title": "Massagetae"
+  },
+  "roxolani": {
+    "regions": ["gelonus"],
+    "color": "e4de8f",
+    "border": "cf715e",
+    "title": "Roxolani"
+  },
+  "scythia": {
+    "regions": ["solokha"],
+    "color": "d4d06d",
+    "border": "c38869",
+    "title": "Scythia"
+  },
+  "boii": {
+    "regions": ["casurgis"],
+    "color": "d5d6a6",
+    "border": "a5806c",
+    "title": "Boii"
+  },
+  "galatia": {
+    "regions": ["ancyra"],
+    "color": "42532c",
+    "border": "443e32",
+    "title": "Galatia"
+  },
+  "nervii": {
+    "regions": ["bagacum"],
+    "color": "9298b9",
+    "border": "605b49",
+    "title": "Nervii"
   }
+
 }

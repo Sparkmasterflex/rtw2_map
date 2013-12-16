@@ -1,13 +1,31 @@
 @import "mixins";
 
-.carthage { background-color: rgba(#fff, 0.75); }
-.rome { background-color: rgba(#900, 0.75); }
+.carthage { background-image: url(/images/factions/carthage.png); }
+.rome { background-image: url(/images/factions/rome.png); }
+.egypt { background-image: url(/images/factions/egypt.png); }
+.athens { background-image: url(/images/factions/athens.png); }
+.sparta { background-image: url(/images/factions/sparta.png); }
+.epirus { background-image: url(/images/factions/epirus.png); }
+.pontus { background-image: url(/images/factions/pontus.png); }
+.iceni { background-image: url(/images/factions/iceni.png); }
+.macedon { background-image: url(/images/factions/macedon.png); }
+.arverni { background-image: url(/images/factions/arverni.png); }
+.suebi { background-image: url(/images/factions/suebi.png); }
+.parthia { background-image: url(/images/factions/parthia.png); }
+.seleuid { background-image: url(/images/factions/seleuid.png); }
+.baktria { background-image: url(/images/factions/baktria.png); }
+.massagetae { background-image: url(/images/factions/massagetae.png); }
+.roxolani { background-image: url(/images/factions/roxolani.png); }
+.scythia { background-image: url(/images/factions/scythia.png); }
+.boii { background-image: url(/images/factions/boii.png); }
+.galatia { background-image: url(/images/factions/galatia.png); }
+.nervii { background-image: url(/images/factions/nervii.png); }
 
-
-.whitebox { @include gradient-two(rgba(#fff, 0.8), rgba(#eee, 0.9)); }
 
 .textured {
   background: url(/images/textured-bg.png) repeat top left;
   border: 3px solid #777;
-  @include box-shadow(0,0,10px,0.8);
+  @include box-shadow(0,0,10px,rgba(#000,0.8));
 }
+
+#map > div { @include box-shadow(0,0,10px,rgba(#000,0.8)); }

@@ -1,5 +1,4 @@
 (function() {
-
   define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
     var User;
     User = Backbone.Model.extend({

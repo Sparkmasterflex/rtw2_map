@@ -1,0 +1,31 @@
+.download {
+  background-image: url(/images/icons/download.png);
+  background-image: url(/images/icons/download.svg); }
+
+.restart {
+  background-image: url(/images/icons/restart.png);
+  background-image: url(/images/icons/restart.svg); }
+
+.share {
+  background-image: url(/images/icons/share.png);
+  background-image: url(/images/icons/share.svg); }
+
+.with-icon {
+  padding: 5px 0 5px 24px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 20px auto;
+  -webkit-background-size: 20px auto;
+  -moz-background-size: 20px auto;
+  -o-background-size: 20px auto;
+  -ms-background-size: 20px auto; }
+
+.with-flag {
+  padding: 10px 0 10px 40px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 32px auto;
+  -webkit-background-size: 32px auto;
+  -moz-background-size: 32px auto;
+  -o-background-size: 32px auto;
+  -ms-background-size: 32px auto; }

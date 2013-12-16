@@ -13,18 +13,16 @@ define [
 
     events:
       "click area.region":     "highlight_region"
-      "click a.screen-shot":   "take_screen_shot"
-      "click a.save-progress": "save_and_generate_link"
 
     initialize: (options) ->
       _.bindAll this, 'render'
-      # this.user = options.user
-      this.user = new User
-        name: "Keith Raymond"
-        turn: 1
-        empire: 'carthage'
-        humanized_empire: 'Carthage'
-        regions: 4
+      this.user = options.user
+      # this.user = new User
+      #   name: "Keith Raymond"
+      #   turn: 1
+      #   empire: 'carthage'
+      #   humanized_empire: 'Carthage'
+      #   regions: 4
 
     render: () ->
       this.$el.html newMap(this)
@@ -46,6 +44,7 @@ define [
         empire_data: this.empire_information
         empire: this.user.get('empire')
         parent: this
+        allow_edit: true
       this.$('#map_container').append this.sidebar.render().el
 
 
@@ -56,6 +55,8 @@ define [
       data.strokeColor = additional.border if additional.border?
       data.alwaysOn = true
       $area.data('maphilight', data).trigger('alwaysOn.maphilight')
+      # TODO: add owner to title attr
+      # $area.attr 'title', "#{additional.title}: #{$area.attr('title')}"
 
     update_empire_data: (region, add) ->
       current_emp = this.selected.title.toLowerCase()
@@ -85,22 +86,7 @@ define [
         data.alwaysOn = true
       $area.data('maphilight', data).trigger('alwaysOn.maphilight')
 
-    take_screen_shot: (e) ->
-      html2canvas this.$('#map > div'),
-        onrendered: (canvas) =>
-          $(e.target).replaceWith "<a href='#download_image' class='download-image'>Download Image</a>"
-          filename = "#{@user.get('name')}_#{@user.get('empire')}.png"
-          extra_canvas = document.createElement("canvas")
-          extra_canvas.setAttribute('width',828)
-          extra_canvas.setAttribute('height',681)
-          ctx = extra_canvas.getContext('2d')
-          ctx.drawImage(canvas,0,0,canvas.width, canvas.height,0,0,828,681)
-          dataURL = extra_canvas.toDataURL()
 
-          $('a.download-image').attr
-            href: dataURL
-            download: filename.replace(/\s/, '_')
-      false
 
     save_and_generate_link: (e) ->
       d = new Date()
@@ -119,7 +105,7 @@ define [
           filename: filename
         success: (response) ->
           url = "http://totalwar.ifkeithraymond.com/%23maps/#{filename.replace(/\.json$/, '')}"
-          # window.location = "http://twitter.com/share?url=#{url}&text=Check out my empire"
+          window.location = "http://twitter.com/share?url=#{url}&text=Check out my empire"
         error: (response, err, other...) ->
           $(e.target).hide().after "<p>Something went wrong :(</p>"
 

@@ -6,19 +6,11 @@
     NewMap = Backbone.View.extend({
       el: "#content section",
       events: {
-        "click area.region": "highlight_region",
-        "click a.screen-shot": "take_screen_shot",
-        "click a.save-progress": "save_and_generate_link"
+        "click area.region": "highlight_region"
       },
       initialize: function(options) {
         _.bindAll(this, 'render');
-        return this.user = new User({
-          name: "Keith Raymond",
-          turn: 1,
-          empire: 'carthage',
-          humanized_empire: 'Carthage',
-          regions: 4
-        });
+        return this.user = options.user;
       },
       render: function() {
         var _this = this;
@@ -55,7 +47,8 @@
           model: this.user,
           empire_data: this.empire_information,
           empire: this.user.get('empire'),
-          parent: this
+          parent: this,
+          allow_edit: true
         });
         return this.$('#map_container').append(this.sidebar.render().el);
       },
@@ -102,27 +95,6 @@
         }
         return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
       },
-      take_screen_shot: function(e) {
-        var _this = this;
-        html2canvas(this.$('#map > div'), {
-          onrendered: function(canvas) {
-            var ctx, dataURL, extra_canvas, filename;
-            $(e.target).replaceWith("<a href='#download_image' class='download-image'>Download Image</a>");
-            filename = "" + (_this.user.get('name')) + "_" + (_this.user.get('empire')) + ".png";
-            extra_canvas = document.createElement("canvas");
-            extra_canvas.setAttribute('width', 828);
-            extra_canvas.setAttribute('height', 681);
-            ctx = extra_canvas.getContext('2d');
-            ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 828, 681);
-            dataURL = extra_canvas.toDataURL();
-            return $('a.download-image').attr({
-              href: dataURL,
-              download: filename.replace(/\s/, '_')
-            });
-          }
-        });
-        return false;
-      },
       save_and_generate_link: function(e) {
         var d, filename, timestamp, user_json;
         d = new Date();
@@ -142,7 +114,8 @@
           },
           success: function(response) {
             var url;
-            return url = "http://totalwar.ifkeithraymond.com/%23maps/" + (filename.replace(/\.json$/, ''));
+            url = "http://totalwar.ifkeithraymond.com/%23maps/" + (filename.replace(/\.json$/, ''));
+            return window.location = "http://twitter.com/share?url=" + url + "&text=Check out my empire";
           },
           error: function() {
             var err, other, response;

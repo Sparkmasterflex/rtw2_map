@@ -6,7 +6,9 @@
       tagName: 'aside',
       className: 'user-sidebar',
       events: {
-        'change select#select-empire': 'select_current_empire'
+        'change select#select-empire': 'select_current_empire',
+        "click a.screen-shot": "take_screen_shot",
+        "click a.save-progress": "save_and_generate_link"
       },
       region_count: 0,
       initialize: function(options) {
@@ -14,11 +16,14 @@
         this.empire_data = options.empire_data;
         this.empire = options.empire;
         this.parent = options.parent;
+        if (options.allow_edit != null) {
+          this.model.set('allow_edit', options.allow_edit);
+        }
         return this.model.bind('change:regions', this.update_region_count);
       },
       render: function() {
         this.$el.html(sidebar(this.model.toJSON()));
-        this.setup_empire_select();
+        if (this.model.get('allow_edit') != null) this.setup_empire_select();
         this.append_controlled_regions();
         return this;
       },
@@ -40,7 +45,7 @@
       },
       add_remove_region: function(region) {
         var $li;
-        if (this.$('select#select-empire').val() === this.empire) {
+        if (this.user_empire_region(region)) {
           $li = this.$(".regions-list li[data-region=" + region + "]");
           if ($li.length > 0) {
             $li.remove();
@@ -52,6 +57,13 @@
           return this.model.set({
             regions: this.region_count
           });
+        }
+      },
+      user_empire_region: function(region) {
+        if (this.model.get('allow_edit') != null) {
+          return this.$('select#select-empire').val() === this.empire;
+        } else {
+          return _.indexOf(this.empire_data[this.empire].regions, region) >= 0;
         }
       },
       update_region_count: function() {
@@ -75,7 +87,6 @@
         var val;
         val = $(e.target).val();
         this.selected = this.empire_data[val];
-        console.log(this.selected);
         this.$('.selected h3').html(this.selected.title);
         this.$('.selected img').attr({
           src: "/images/factions/" + val + ".png",
@@ -83,6 +94,31 @@
           alt: this.selected.title
         });
         return this.parent.selected = this.selected;
+      },
+      take_screen_shot: function(e) {
+        var _this = this;
+        html2canvas(this.$('#map > div'), {
+          onrendered: function(canvas) {
+            var ctx, dataURL, extra_canvas, filename;
+            $(e.target).replaceWith("<a href='#download_image' class='download-image'>Download Image</a>");
+            filename = "" + (_this.user.get('name')) + "_" + (_this.user.get('empire')) + ".png";
+            extra_canvas = document.createElement("canvas");
+            extra_canvas.setAttribute('width', 828);
+            extra_canvas.setAttribute('height', 681);
+            ctx = extra_canvas.getContext('2d');
+            ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 828, 681);
+            dataURL = extra_canvas.toDataURL();
+            return $('a.download-image').attr({
+              href: dataURL,
+              download: filename.replace(/\s/, '_')
+            });
+          }
+        });
+        return false;
+      },
+      save_and_generate_link: function(e) {
+        this.parent.save_and_generate_link(e);
+        return false;
       }
     });
     return Sidebar;
