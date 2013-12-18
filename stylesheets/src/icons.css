@@ -1,18 +1,14 @@
 .download {
-  background-image: url(/images/icons/download.png);
-  background-image: url(/images/icons/download.svg); }
+  background-image: url(/images/icons/download.png); }
 
 .picture {
-  background-image: url(/images/icons/picture.png);
-  background-image: url(/images/icons/picture.svg); }
+  background-image: url(/images/icons/picture.png); }
 
 .restart {
-  background-image: url(/images/icons/restart.png);
-  background-image: url(/images/icons/restart.svg); }
+  background-image: url(/images/icons/restart.png); }
 
 .share {
-  background-image: url(/images/icons/share.png);
-  background-image: url(/images/icons/share.svg); }
+  background-image: url(/images/icons/share.png); }
 
 .with-icon {
   padding: 5px 0 5px 24px;
