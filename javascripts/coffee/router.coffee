@@ -26,6 +26,7 @@ define [
 
       this.on 'route:maps_show', (file) ->
         $.get "/javascripts/saved_data/#{file}.json", (data) =>
+          data = JSON.parse(data)
           this.show_map = new ShowMap
             user: new User(data.user)
             empire_information: data.factions

@@ -32,7 +32,7 @@ define [
     prepare_map: () ->
       this.$('#map_image').maphilight()
       $.get "/javascripts/factions.json", (data) =>
-        @empire_information = data
+        @empire_information = JSON.parse(data)
         @selected = this.empire_information[@user.get('empire')]
         $.each @empire_information, (key, attrs) =>
           additional = {empire: key, color: attrs.color, border: attrs.border}

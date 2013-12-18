@@ -24,7 +24,7 @@
         var _this = this;
         this.$('#map_image').maphilight();
         return $.get("/javascripts/factions.json", function(data) {
-          _this.empire_information = data;
+          _this.empire_information = JSON.parse(data);
           _this.selected = _this.empire_information[_this.user.get('empire')];
           return $.each(_this.empire_information, function(key, attrs) {
             var additional, region, _i, _len, _ref, _results;

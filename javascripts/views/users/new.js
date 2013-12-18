@@ -22,7 +22,7 @@
         this.$('input#regions').val(this.model.get('regions'));
         return $.get("/javascripts/factions.json", function(data) {
           _this.$('select#empire').empty();
-          return $.each(data, function(key, attrs) {
+          return $.each(JSON.parse(data), function(key, attrs) {
             var $option;
             $option = $("<option value='" + key + "'>" + (key.charAt(0).toUpperCase()) + (key.slice(1)) + "</option>");
             if (key === _this.model.get('empire')) $option.attr('selected', true);
