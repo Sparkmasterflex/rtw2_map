@@ -35,7 +35,7 @@ define [
         @empire_information = data
         @selected = this.empire_information[@user.get('empire')]
         $.each @empire_information, (key, attrs) =>
-          additional = {color: attrs.color, border: attrs.border}
+          additional = {empire: key, color: attrs.color, border: attrs.border}
           @color_settlements region, additional for region in attrs.regions
 
     render_sidebar: () ->
@@ -54,18 +54,22 @@ define [
       data.fillColor = additional.color
       data.strokeColor = additional.border if additional.border?
       data.alwaysOn = true
-      $area.data('maphilight', data).trigger('alwaysOn.maphilight')
-      # TODO: add owner to title attr
-      # $area.attr 'title', "#{additional.title}: #{$area.attr('title')}"
+      $area.data('empire', additional.empire).data('maphilight', data).trigger('alwaysOn.maphilight')
+      $area.attr 'title', "#{additional.empire}: #{$area.attr('title')}"
 
-    update_empire_data: (region, add) ->
-      current_emp = this.selected.title.toLowerCase()
-      current_data = this.empire_information[current_emp]
-      i = _.indexOf current_data.regions, region
-      if i >= 0
-        current_data.regions.splice(i, 1)
-      else
-        current_data.regions.push(region)
+    update_empire_data: (region, prev_emp) ->
+      empires = [this.selected.title.toLowerCase()]
+      empires.push(prev_emp) if prev_emp?
+      _.each empires, (emp) =>
+        current_data = this.empire_information[emp]
+        i = _.indexOf current_data.regions, region
+        if i >= 0
+          current_data.regions.splice(i, 1)
+          this.$("area##{region}").removeAttr('data-empire')
+        else
+          current_data.regions.push(region)
+          this.$("area##{region}").data('empire', emp)
+
 
 
     ###=============================
@@ -75,7 +79,7 @@ define [
       $area = $(e.target)
       data = $area.data('maphilight') or {}
       this.sidebar.add_remove_region $area.attr('id') unless data.fillColor? and data.fillColor isnt this.selected.color
-      this.update_empire_data $area.attr('id'), !data.fillColor
+      this.update_empire_data $area.attr('id'), $area.data('empire')
       if data.fillColor
         delete data.fillColor
         delete data.strokeColor

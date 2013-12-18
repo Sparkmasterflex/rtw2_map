@@ -20,8 +20,7 @@ html,body { height: 100%; }
 body {
   font: { size: 62.5%; family: Arial, Tahoma, san-serif; }
   color: #333;
-  background: #333 url(/images/rtw2-body-bg.jpg) no-repeat left top;
-  @include bg-size(100%, auto);
+  background: #333;
 }
 
 section {
@@ -48,6 +47,11 @@ a {
   }
 }
 
+.ta-left   { text-align: left;   }
+.ta-right  { text-align: right;  }
+.ta-center { text-align: center; }
+
+
 ul.details {
   li {
     padding: 0.75em 0;
@@ -59,6 +63,33 @@ ul.details {
     &:first-child { border-top: none; }
     &:last-child { border-bottom: none; }
   }
+}
+
+
+header {
+  margin-bottom: 3em;
+  @include gradient-two(rgba(#333, 0.4), rgba(#333, 0.6));
+  border-bottom: 2px solid #333;
+}
+
+h1.logo {
+  float: left;
+  width: 30%;
+  background: url(/images/rome-2-logo.png) no-repeat left center;
+  height: 110px;
+  @include hidden;
+}
+
+h2.share-header {
+  float: left;
+  padding: 0.35em;
+  margin: 1em 0;
+  color: #fff;
+}
+
+header, #content {
+  position: relative;
+  z-index: 300;
 }
 
 
@@ -97,4 +128,12 @@ ul.details {
   padding: 0 0 0.25em;
   text-align: center;
   border-bottom: 1px solid #333;
+}
+
+.slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  img { width: 100%; }
 }

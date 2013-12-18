@@ -14,6 +14,7 @@ define [
     initialize: (options) ->
       _.bindAll this, 'render'
       this.user = options.user
+      this.user.set 'allow_edit', false
       this.empire_information = options.empire_information
 
     render: () ->
@@ -44,3 +45,4 @@ define [
       data.strokeColor = additional.border if additional.border?
       data.alwaysOn = true
       $area.data('maphilight', data).trigger('alwaysOn.maphilight')
+

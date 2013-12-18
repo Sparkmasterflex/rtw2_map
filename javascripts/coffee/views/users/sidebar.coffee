@@ -21,6 +21,7 @@ define [
       this.empire = options.empire
       this.parent = options.parent
       this.model.set('allow_edit', options.allow_edit) if options.allow_edit?
+      this.region_count = parseInt(this.model.get('regions'))
       this.model.bind 'change:regions', this.update_region_count
 
     render: () ->
@@ -44,15 +45,15 @@ define [
       if this.user_empire_region(region)
         $li = this.$(".regions-list li[data-region=#{region}]")
         if $li.length > 0
+          this.region_count -= 1 unless this.$('.regions-list li').length < this.region_count
           $li.remove()
-          this.region_count -= 1
         else
+          this.region_count += 1 unless this.$('.regions-list li').length < this.region_count
           this.$(".regions-list ul").prepend "<li data-region='#{region}'>#{this.humanize(region)}</li>"
-          this.region_count += 1
         this.model.set {regions: this.region_count}
 
     user_empire_region: (region) ->
-      if this.model.get('allow_edit')?
+      if this.model.get('allow_edit')
         this.$('select#select-empire').val() is this.empire
       else
         _.indexOf(this.empire_data[this.empire].regions, region) >= 0
@@ -83,10 +84,10 @@ define [
       this.parent.selected = this.selected
 
     take_screen_shot: (e) ->
-      html2canvas this.$('#map > div'),
+      html2canvas $('#map > div'),
         onrendered: (canvas) =>
-          $(e.target).replaceWith "<a href='#download_image' class='download-image'>Download Image</a>"
-          filename = "#{@user.get('name')}_#{@user.get('empire')}.png"
+          $(e.target).replaceWith "<a href='#download_image' class='download with-icon'>Download Image</a>"
+          filename = "#{@model.get('name')}_#{@model.get('empire')}.png"
           extra_canvas = document.createElement("canvas")
           extra_canvas.setAttribute('width',828)
           extra_canvas.setAttribute('height',681)
@@ -94,7 +95,7 @@ define [
           ctx.drawImage(canvas,0,0,canvas.width, canvas.height,0,0,828,681)
           dataURL = extra_canvas.toDataURL()
 
-          $('a.download-image').attr
+          $('a.download').attr
             href: dataURL
             download: filename.replace(/\s/, '_')
       false

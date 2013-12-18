@@ -25,12 +25,7 @@ body {
   font-size: 62.5%;
   font-family: Arial, Tahoma, san-serif;
   color: #333;
-  background: #333333 url(/images/rtw2-body-bg.jpg) no-repeat left top;
-  background-size: 100% auto;
-  -webkit-background-size: 100% auto;
-  -moz-background-size: 100% auto;
-  -o-background-size: 100% auto;
-  -ms-background-size: 100% auto; }
+  background: #333; }
 
 section {
   width: 100%;
@@ -61,6 +56,15 @@ a {
     color: #666;
     text-decoration: underline; }
 
+.ta-left {
+  text-align: left; }
+
+.ta-right {
+  text-align: right; }
+
+.ta-center {
+  text-align: center; }
+
 ul.details li {
   padding: 0.75em 0;
   margin: 0;
@@ -70,6 +74,36 @@ ul.details li {
     border-top: none; }
   ul.details li:last-child {
     border-bottom: none; }
+
+header {
+  margin-bottom: 3em;
+  background-color: rgba(51, 51, 51, 0.4);
+  background: -moz-linear-gradient(top, rgba(51, 51, 51, 0.4) 0%, rgba(51, 51, 51, 0.6) 100%);
+  background: -webkit-linear-gradient(top, rgba(51, 51, 51, 0.4) 0%, rgba(51, 51, 51, 0.6) 100%);
+  background: -o-linear-gradient(top, rgba(51, 51, 51, 0.4) 0%, rgba(51, 51, 51, 0.6) 100%);
+  background: -ms-linear-gradient(top, rgba(51, 51, 51, 0.4) 0%, rgba(51, 51, 51, 0.6) 100%);
+  background: linear-gradient(top, rgba(51, 51, 51, 0.4) 0%, rgba(51, 51, 51, 0.6) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(51, 51, 51, 0.4)), color-stop(100%, rgba(51, 51, 51, 0.6)));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$c1', endColorstr='$c2',GradientType=0 );
+  border-bottom: 2px solid #333; }
+
+h1.logo {
+  float: left;
+  width: 30%;
+  background: url(/images/rome-2-logo.png) no-repeat left center;
+  height: 110px;
+  text-indent: -9999px;
+  overflow: hidden; }
+
+h2.share-header {
+  float: left;
+  padding: 0.35em;
+  margin: 1em 0;
+  color: #fff; }
+
+header, #content {
+  position: relative;
+  z-index: 300; }
 
 #map_container {
   position: relative; }
@@ -105,3 +139,11 @@ ul.details li {
   padding: 0 0 0.25em;
   text-align: center;
   border-bottom: 1px solid #333; }
+
+.slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; }
+  .slideshow img {
+    width: 100%; }

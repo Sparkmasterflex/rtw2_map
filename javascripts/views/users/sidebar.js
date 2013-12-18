@@ -19,6 +19,7 @@
         if (options.allow_edit != null) {
           this.model.set('allow_edit', options.allow_edit);
         }
+        this.region_count = parseInt(this.model.get('regions'));
         return this.model.bind('change:regions', this.update_region_count);
       },
       render: function() {
@@ -48,11 +49,15 @@
         if (this.user_empire_region(region)) {
           $li = this.$(".regions-list li[data-region=" + region + "]");
           if ($li.length > 0) {
+            if (!(this.$('.regions-list li').length < this.region_count)) {
+              this.region_count -= 1;
+            }
             $li.remove();
-            this.region_count -= 1;
           } else {
+            if (!(this.$('.regions-list li').length < this.region_count)) {
+              this.region_count += 1;
+            }
             this.$(".regions-list ul").prepend("<li data-region='" + region + "'>" + (this.humanize(region)) + "</li>");
-            this.region_count += 1;
           }
           return this.model.set({
             regions: this.region_count
@@ -60,7 +65,7 @@
         }
       },
       user_empire_region: function(region) {
-        if (this.model.get('allow_edit') != null) {
+        if (this.model.get('allow_edit')) {
           return this.$('select#select-empire').val() === this.empire;
         } else {
           return _.indexOf(this.empire_data[this.empire].regions, region) >= 0;
@@ -97,18 +102,18 @@
       },
       take_screen_shot: function(e) {
         var _this = this;
-        html2canvas(this.$('#map > div'), {
+        html2canvas($('#map > div'), {
           onrendered: function(canvas) {
             var ctx, dataURL, extra_canvas, filename;
-            $(e.target).replaceWith("<a href='#download_image' class='download-image'>Download Image</a>");
-            filename = "" + (_this.user.get('name')) + "_" + (_this.user.get('empire')) + ".png";
+            $(e.target).replaceWith("<a href='#download_image' class='download with-icon'>Download Image</a>");
+            filename = "" + (_this.model.get('name')) + "_" + (_this.model.get('empire')) + ".png";
             extra_canvas = document.createElement("canvas");
             extra_canvas.setAttribute('width', 828);
             extra_canvas.setAttribute('height', 681);
             ctx = extra_canvas.getContext('2d');
             ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 828, 681);
             dataURL = extra_canvas.toDataURL();
-            return $('a.download-image').attr({
+            return $('a.download').attr({
               href: dataURL,
               download: filename.replace(/\s/, '_')
             });

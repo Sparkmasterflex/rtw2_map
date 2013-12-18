@@ -1,8 +1,10 @@
 (function() {
+
   require.config({
     paths: {
       jquery: '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min',
       maphilight: 'vendor/jquery.maphilight',
+      cycle2: 'vendor/cycle2.min',
       underscore: 'vendor/underscore.min',
       backbone: 'vendor/backbone.min',
       templates: '../templates',
@@ -25,6 +27,10 @@
       'html2canvas': {
         exports: 'html2canvas',
         deps: ['jquery']
+      },
+      'cycle2': {
+        deps: ['jquery'],
+        exports: 'jQuery.fn.cycle'
       },
       'maphilight': {
         deps: ['jquery'],
@@ -57,7 +63,12 @@
     }
   });
 
-  require(['app'], function(App) {
+  require(['app', 'cycle2'], function(App, cycle) {
+    $('.slideshow').cycle({
+      delay: 4000,
+      speed: 1500,
+      loader: 'wait'
+    });
     window.MapApp = App;
     return MapApp.initialize();
   });

@@ -29,6 +29,7 @@
           return $.each(_this.empire_information, function(key, attrs) {
             var additional, region, _i, _len, _ref, _results;
             additional = {
+              empire: key,
               color: attrs.color,
               border: attrs.border
             };
@@ -59,18 +60,26 @@
         data.fillColor = additional.color;
         if (additional.border != null) data.strokeColor = additional.border;
         data.alwaysOn = true;
-        return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
+        $area.data('empire', additional.empire).data('maphilight', data).trigger('alwaysOn.maphilight');
+        return $area.attr('title', "" + additional.empire + ": " + ($area.attr('title')));
       },
-      update_empire_data: function(region, add) {
-        var current_data, current_emp, i;
-        current_emp = this.selected.title.toLowerCase();
-        current_data = this.empire_information[current_emp];
-        i = _.indexOf(current_data.regions, region);
-        if (i >= 0) {
-          return current_data.regions.splice(i, 1);
-        } else {
-          return current_data.regions.push(region);
-        }
+      update_empire_data: function(region, prev_emp) {
+        var empires,
+          _this = this;
+        empires = [this.selected.title.toLowerCase()];
+        if (prev_emp != null) empires.push(prev_emp);
+        return _.each(empires, function(emp) {
+          var current_data, i;
+          current_data = _this.empire_information[emp];
+          i = _.indexOf(current_data.regions, region);
+          if (i >= 0) {
+            current_data.regions.splice(i, 1);
+            return _this.$("area#" + region).removeAttr('data-empire');
+          } else {
+            current_data.regions.push(region);
+            return _this.$("area#" + region).data('empire', emp);
+          }
+        });
       },
       /*=============================
                   EVENTS
@@ -83,7 +92,7 @@
         if (!((data.fillColor != null) && data.fillColor !== this.selected.color)) {
           this.sidebar.add_remove_region($area.attr('id'));
         }
-        this.update_empire_data($area.attr('id'), !data.fillColor);
+        this.update_empire_data($area.attr('id'), $area.data('empire'));
         if (data.fillColor) {
           delete data.fillColor;
           delete data.strokeColor;

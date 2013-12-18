@@ -1,4 +1,5 @@
 (function() {
+
   define(['jquery', 'underscore', 'backbone', 'models/user', 'hbars!templates/users/new'], function($, _, Backbone, User, newUser) {
     var NewUser;
     NewUser = Backbone.View.extend({
@@ -24,9 +25,7 @@
           return $.each(data, function(key, attrs) {
             var $option;
             $option = $("<option value='" + key + "'>" + (key.charAt(0).toUpperCase()) + (key.slice(1)) + "</option>");
-            if (key === _this.model.get('empire')) {
-              $option.attr('selected', true);
-            }
+            if (key === _this.model.get('empire')) $option.attr('selected', true);
             return _this.$('select#empire').append($option);
           });
         });
@@ -46,7 +45,6 @@
                 EVENTS
       =======================
       */
-
       create_user: function(e) {
         var _this = this;
         $.when(this.set_user_attributes()).then(function() {

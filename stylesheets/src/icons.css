@@ -2,6 +2,10 @@
   background-image: url(/images/icons/download.png);
   background-image: url(/images/icons/download.svg); }
 
+.picture {
+  background-image: url(/images/icons/picture.png);
+  background-image: url(/images/icons/picture.svg); }
+
 .restart {
   background-image: url(/images/icons/restart.png);
   background-image: url(/images/icons/restart.svg); }

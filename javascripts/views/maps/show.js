@@ -7,6 +7,7 @@
       initialize: function(options) {
         _.bindAll(this, 'render');
         this.user = options.user;
+        this.user.set('allow_edit', false);
         return this.empire_information = options.empire_information;
       },
       render: function() {
