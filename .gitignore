@@ -12,3 +12,5 @@ javascripts/saved_data/Keith_Raymond_carthage_201311141387076263790.json
 .sass-cache/e1673a0786c7dd593758e9659a4cf13b06a292ee/base.scssc
 
 .sass-cache/e1673a0786c7dd593758e9659a4cf13b06a292ee/skins.scssc
+
+config/deploy.rb
