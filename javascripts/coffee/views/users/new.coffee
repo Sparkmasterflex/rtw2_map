@@ -3,8 +3,9 @@ define [
   'underscore'
   'backbone'
   'models/user'
+  'views/maps/recent_map'
   'hbars!templates/users/new'
-], ($, _, Backbone, User, newUser) ->
+], ($, _, Backbone, User, RecentMap, newUser) ->
   NewUser = Backbone.View.extend
     el: "#content section"
 
@@ -18,6 +19,7 @@ define [
     render: () ->
       this.$el.html newUser(this)
       this.setup_form()
+      this.get_recent_maps()
       this
 
     # Create options for empire dropdown
@@ -35,6 +37,16 @@ define [
           $option = $("<option value='#{key}'>#{key.charAt(0).toUpperCase()}#{key.slice(1)}</option>")
           $option.attr('selected', true) if key is @model.get('empire')
           @.$('select#empire').append $option
+
+    get_recent_maps: () ->
+      $.ajax
+        url: "/includes/recent.php"
+        type: "GET"
+        success: (response) =>
+          @.$('table.recent-maps tbody').empty() if response.length > 0
+          _.each response, (map) =>
+            recent = new RecentMap model: map
+            @.$('table.recent-maps tbody').append recent.render().el
 
     set_user_attributes: ->
       $.each this.$('input, select'), (i, elm) =>

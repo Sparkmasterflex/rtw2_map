@@ -1,6 +1,5 @@
 (function() {
-
-  define(['jquery', 'underscore', 'backbone', 'models/user', 'hbars!templates/users/new'], function($, _, Backbone, User, newUser) {
+  define(['jquery', 'underscore', 'backbone', 'models/user', 'views/maps/recent_map', 'hbars!templates/users/new'], function($, _, Backbone, User, RecentMap, newUser) {
     var NewUser;
     NewUser = Backbone.View.extend({
       el: "#content section",
@@ -14,6 +13,7 @@
       render: function() {
         this.$el.html(newUser(this));
         this.setup_form();
+        this.get_recent_maps();
         return this;
       },
       setup_form: function() {
@@ -22,12 +22,33 @@
         this.$('input#regions').val(this.model.get('regions'));
         return $.get("/javascripts/factions.json", function(data) {
           _this.$('select#empire').empty();
-          return $.each(JSON.parse(data), function(key, attrs) {
+          return $.each(data, function(key, attrs) {
             var $option;
             $option = $("<option value='" + key + "'>" + (key.charAt(0).toUpperCase()) + (key.slice(1)) + "</option>");
-            if (key === _this.model.get('empire')) $option.attr('selected', true);
+            if (key === _this.model.get('empire')) {
+              $option.attr('selected', true);
+            }
             return _this.$('select#empire').append($option);
           });
+        });
+      },
+      get_recent_maps: function() {
+        var _this = this;
+        return $.ajax({
+          url: "/includes/recent.php",
+          type: "GET",
+          success: function(response) {
+            if (response.length > 0) {
+              _this.$('table.recent-maps tbody').empty();
+            }
+            return _.each(response, function(map) {
+              var recent;
+              recent = new RecentMap({
+                model: map
+              });
+              return _this.$('table.recent-maps tbody').append(recent.render().el);
+            });
+          }
         });
       },
       set_user_attributes: function() {
@@ -45,6 +66,7 @@
                 EVENTS
       =======================
       */
+
       create_user: function(e) {
         var _this = this;
         $.when(this.set_user_attributes()).then(function() {

@@ -47,6 +47,20 @@ a {
   }
 }
 
+table {
+  thead {
+    background: rgba(#333, 0.6);
+    color: #fff;
+    td { border-right: 1px solid #999; }
+  }
+  tbody tr:nth-child(even) { background: rgba(#999, 0.5); }
+  td {
+    font-size: 1.6em;
+    padding: 0.35em 0.5em;
+    a { font-size: 1em; }
+  }
+}
+
 .ta-left   { text-align: left;   }
 .ta-right  { text-align: right;  }
 .ta-center { text-align: center; }

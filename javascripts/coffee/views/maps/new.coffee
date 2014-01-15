@@ -101,7 +101,7 @@ define [
         factions: this.empire_information
       }
       $.ajax
-        url: '/share_map.php'
+        url: '/includes/share_map.php'
         type: 'POST'
         dataType: 'json'
         data:

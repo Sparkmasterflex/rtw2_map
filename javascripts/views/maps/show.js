@@ -1,5 +1,4 @@
 (function() {
-
   define(['jquery', 'underscore', 'backbone', 'html2canvas', 'models/map', 'models/user', 'views/users/sidebar', 'hbars!templates/maps/map'], function($, _, Backbone, html2canvas, Map, User, Sidebar, showMap) {
     var ShowMap;
     return ShowMap = Backbone.View.extend({
@@ -51,7 +50,9 @@
         $area = this.$("area#" + region);
         data = $area.data('maphilight') || {};
         data.fillColor = additional.color;
-        if (additional.border != null) data.strokeColor = additional.border;
+        if (additional.border != null) {
+          data.strokeColor = additional.border;
+        }
         data.alwaysOn = true;
         return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
       }

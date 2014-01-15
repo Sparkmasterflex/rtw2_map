@@ -1,5 +1,5 @@
 (function() {
-  var __slice = Array.prototype.slice;
+  var __slice = [].slice;
 
   define(['jquery', 'underscore', 'backbone', 'html2canvas', 'models/map', 'models/user', 'views/users/sidebar', 'hbars!templates/maps/map'], function($, _, Backbone, html2canvas, Map, User, Sidebar, newMap) {
     var NewMap;
@@ -58,7 +58,9 @@
         $area = this.$("area#" + region);
         data = $area.data('maphilight') || {};
         data.fillColor = additional.color;
-        if (additional.border != null) data.strokeColor = additional.border;
+        if (additional.border != null) {
+          data.strokeColor = additional.border;
+        }
         data.alwaysOn = true;
         $area.data('empire', additional.empire).data('maphilight', data).trigger('alwaysOn.maphilight');
         return $area.attr('title', "" + additional.empire + ": " + ($area.attr('title')));
@@ -67,7 +69,9 @@
         var empires,
           _this = this;
         empires = [this.selected.title.toLowerCase()];
-        if (prev_emp != null) empires.push(prev_emp);
+        if (prev_emp != null) {
+          empires.push(prev_emp);
+        }
         return _.each(empires, function(emp) {
           var current_data, i;
           current_data = _this.empire_information[emp];
@@ -85,6 +89,7 @@
                   EVENTS
       =============================
       */
+
       highlight_region: function(e) {
         var $area, data;
         $area = $(e.target);
@@ -114,7 +119,7 @@
           factions: this.empire_information
         };
         $.ajax({
-          url: '/share_map.php',
+          url: '/includes/share_map.php',
           type: 'POST',
           dataType: 'json',
           data: {
