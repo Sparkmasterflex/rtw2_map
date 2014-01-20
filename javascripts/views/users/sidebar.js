@@ -1,4 +1,5 @@
 (function() {
+
   define(['jquery', 'underscore', 'backbone', 'hbars!templates/users/sidebar'], function($, _, Backbone, sidebar) {
     var Sidebar;
     Sidebar = Backbone.View.extend({
@@ -23,9 +24,7 @@
       },
       render: function() {
         this.$el.html(sidebar(this.model.toJSON()));
-        if (this.model.get('allow_edit') != null) {
-          this.setup_empire_select();
-        }
+        if (this.model.get('allow_edit') != null) this.setup_empire_select();
         this.append_controlled_regions();
         return this;
       },
@@ -34,9 +33,7 @@
         return _.each(this.empire_data, function(value, key) {
           var $option;
           $option = $("<option value='" + key + "'>" + value.title + "</option>");
-          if (key === _this.empire) {
-            $option.attr('selected', true);
-          }
+          if (key === _this.empire) $option.attr('selected', true);
           return _this.$('select#select-empire').append($option);
         });
       },
@@ -91,7 +88,6 @@
                  EVENTS
       ========================
       */
-
       select_current_empire: function(e) {
         var val;
         val = $(e.target).val();
