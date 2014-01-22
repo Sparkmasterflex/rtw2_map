@@ -1,5 +1,4 @@
 (function() {
-
   define(['jquery', 'underscore', 'backbone', 'models/user', 'views/maps/recent_map', 'hbars!templates/users/new'], function($, _, Backbone, User, RecentMap, newUser) {
     var NewUser;
     NewUser = Backbone.View.extend({
@@ -26,7 +25,9 @@
           return $.each(JSON.parse(data), function(key, attrs) {
             var $option;
             $option = $("<option value='" + key + "'>" + (key.charAt(0).toUpperCase()) + (key.slice(1)) + "</option>");
-            if (key === _this.model.get('empire')) $option.attr('selected', true);
+            if (key === _this.model.get('empire')) {
+              $option.attr('selected', true);
+            }
             return _this.$('select#empire').append($option);
           });
         });
@@ -37,7 +38,9 @@
           url: "/includes/recent.php",
           type: "GET",
           success: function(response) {
-            if (response.length > 0) _this.$('table.recent-maps tbody').empty();
+            if (response.length > 0) {
+              _this.$('table.recent-maps tbody').empty();
+            }
             return _.each(response, function(map) {
               var recent;
               recent = new RecentMap({
@@ -63,6 +66,7 @@
                 EVENTS
       =======================
       */
+
       create_user: function(e) {
         var _this = this;
         $.when(this.set_user_attributes()).then(function() {

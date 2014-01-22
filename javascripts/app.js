@@ -1,5 +1,4 @@
 (function() {
-
   define(['jquery', 'underscore', 'backbone', 'maphilight', 'router'], function($, _, backbone, maphilight, Router) {
     var initialize;
     initialize = function() {

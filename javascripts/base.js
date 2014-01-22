@@ -34,7 +34,9 @@
     $area = $("area#" + region);
     data = $area.data('maphilight') || {};
     data.fillColor = additional.color;
-    if (additional.border != null) data.strokeColor = additional.border;
+    if (additional.border != null) {
+      data.strokeColor = additional.border;
+    }
     data.alwaysOn = true;
     return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
   };

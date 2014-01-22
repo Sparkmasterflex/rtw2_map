@@ -10,7 +10,8 @@ module.exports = function(grunt) {
           'stylesheets/src/structures.css': 'stylesheets/sass/structures.scss',
           'stylesheets/src/skins.css': 'stylesheets/sass/skins.scss',
           'stylesheets/src/forms.css': 'stylesheets/sass/forms.scss',
-          'stylesheets/src/icons.css': 'stylesheets/sass/icons.scss'
+          'stylesheets/src/icons.css': 'stylesheets/sass/icons.scss',
+          'stylesheets/src/responsive.css': 'stylesheets/sass/responsive.scss'
         }
       },
       options: {

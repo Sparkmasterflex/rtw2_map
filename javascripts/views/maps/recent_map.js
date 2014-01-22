@@ -1,5 +1,4 @@
 (function() {
-
   define(['jquery', 'underscore', 'backbone', 'models/map', 'hbars!templates/maps/recent_map'], function($, _, Backbone, Map, recentMap) {
     var RecentMap;
     RecentMap = Backbone.View.extend({

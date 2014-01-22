@@ -1,0 +1,55 @@
+@import "mixins";
+
+@media screen and (max-width: 1200px) {
+  #map_container aside.user-sidebar {
+    right: 10px;
+    .sidebar-group {
+      width: 23em;
+      padding: 1em;
+    }
+  }
+  .selected h3 { padding: 0.65em 0.25em; }
+}
+
+@media screen and (max-width: 1100px) {
+  header.pad-vertical-20 {
+    padding: { top: 10px; bottom: 10px; }
+    margin-bottom: 1.5em;
+    h1.logo {
+      height: 80px;
+      @include bg-size(auto, 100%);
+    }
+    h2.share-header { margin: 0.25em 0; }
+  }
+  #map_container aside.user-sidebar {
+    &.full-sized {
+      width: 82.8em;
+      .sidebar-group { width: 97%; }
+    }
+    position: relative;
+    width: 98em;
+    margin: 0 auto;
+    right: auto;
+    .sidebar-group {
+      float: left;
+      width: auto;
+      height: 15em;
+      margin-left: 2em;
+      &:first-child { margin-left: 0; }
+      .sidebar-head,
+      .regions-list,
+      ul.details {
+        float: left;
+        width: 20em;
+        margin-right: 1.5em;
+      }
+      ul.details li { padding: 0.35em 0; }
+      .regions-list ul { max-height: 10em; }
+    }
+  }
+  #map>div { margin: 0 auto; }
+}
+
+@media screen and (max-width: 1024px) {
+
+}

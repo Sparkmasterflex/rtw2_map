@@ -1,5 +1,4 @@
 (function() {
-
   define(['jquery', 'underscore', 'backbone', 'app', 'models/user', 'views/users/new', 'views/maps/new', 'views/maps/show'], function($, _, Backbone, App, User, NewUser, NewMap, ShowMap) {
     var AppRouter;
     AppRouter = Backbone.Router.extend({

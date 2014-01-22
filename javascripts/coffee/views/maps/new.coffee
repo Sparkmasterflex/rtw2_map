@@ -33,6 +33,7 @@ define [
       this.$('#map_image').maphilight()
       $.get "/javascripts/factions.json", (data) =>
         @empire_information = JSON.parse(data)
+        # @empire_information = data
         @selected = this.empire_information[@user.get('empire')]
         $.each @empire_information, (key, attrs) =>
           additional = {empire: key, color: attrs.color, border: attrs.border}
@@ -45,7 +46,7 @@ define [
         empire: this.user.get('empire')
         parent: this
         allow_edit: true
-      this.$('#map_container').append this.sidebar.render().el
+      this.$('#map_container').prepend this.sidebar.render().el
 
 
     color_settlements: (region, additional) ->

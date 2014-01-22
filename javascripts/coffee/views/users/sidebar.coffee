@@ -6,7 +6,7 @@ define [
 ], ($, _, Backbone, sidebar) ->
   Sidebar = Backbone.View.extend
     tagName: 'aside'
-    className: 'user-sidebar'
+    className: 'user-sidebar clearfix'
 
     events:
       'change select#select-empire': 'select_current_empire'

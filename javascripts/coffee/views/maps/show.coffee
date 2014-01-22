@@ -36,7 +36,8 @@ define [
         empire: this.user.get('empire')
         parent: this
 
-      this.$('#map_container').append this.sidebar.render().el
+      this.$('#map_container').prepend this.sidebar.render().el
+      this.sidebar.$el.addClass 'full-sized'
 
     color_settlements: (region, additional) ->
       $area = this.$("area##{region}")
