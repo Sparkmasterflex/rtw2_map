@@ -50,6 +50,22 @@
   #map>div { margin: 0 auto; }
 }
 
-@media screen and (max-width: 1024px) {
-
+@media screen and (max-width: 900px) {
+  #content {
+    overflow: hidden;
+    #map { margin-left: -1em; }
+  }
+  label { width: 25%; }
+  .two-col .field input { width: 35%; float: right; }
+  #map_container aside.user-sidebar .sidebar-group {
+    &:first-child { width: 20em; }
+    .sidebar-head { width: 13em;
+      h3 { font-size: 2em; }
+    }
+    ul.details { width: 17.5em; }
+    .field {
+      label { width: 100%; }
+      select { width: 100%; }
+    }
+  }
 }

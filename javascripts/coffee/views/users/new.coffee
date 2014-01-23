@@ -33,6 +33,7 @@ define [
       # setup empire select
       $.get "/javascripts/factions.json", (data) =>
         @.$('select#empire').empty()
+        # $.each data, (key, attrs) =>
         $.each JSON.parse(data), (key, attrs) =>
           $option = $("<option value='#{key}'>#{key.charAt(0).toUpperCase()}#{key.slice(1)}</option>")
           $option.attr('selected', true) if key is @model.get('empire')
