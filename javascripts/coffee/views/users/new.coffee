@@ -4,8 +4,9 @@ define [
   'backbone'
   'models/user'
   'views/maps/recent_map'
+  'views/users/returning_map'
   'hbars!templates/users/new'
-], ($, _, Backbone, User, RecentMap, newUser) ->
+], ($, _, Backbone, User, RecentMap, ReturningMap, newUser) ->
   NewUser = Backbone.View.extend
     el: "#content section"
 
@@ -33,8 +34,8 @@ define [
       # setup empire select
       $.get "/javascripts/factions.json", (data) =>
         @.$('select#empire').empty()
-        # $.each data, (key, attrs) =>
-        $.each JSON.parse(data), (key, attrs) =>
+        data = if MapApp.development then data else JSON.parse(data)
+        $.each data, (key, attrs) =>
           $option = $("<option value='#{key}'>#{key.charAt(0).toUpperCase()}#{key.slice(1)}</option>")
           $option.attr('selected', true) if key is @model.get('empire')
           @.$('select#empire').append $option
@@ -46,6 +47,7 @@ define [
         success: (response) =>
           @.$('table.recent-maps tbody').empty() if response.length > 0
           _.each response, (map) =>
+            @setup_returning_user map if map.return_key? and map.return_key is localStorage.getItem('return_key')
             recent = new RecentMap model: map
             @.$('table.recent-maps tbody').append recent.render().el
 
@@ -55,6 +57,9 @@ define [
       emp = this.model.get('empire')
       this.model.set {humanized_empire: "#{emp.charAt(0).toUpperCase()}#{emp.slice(1)}"}
 
+    setup_returning_user: (map) ->
+      returning = new ReturningMap model: map
+      $('.previous-maps').prepend returning.render().el
 
     ###=======================
               EVENTS

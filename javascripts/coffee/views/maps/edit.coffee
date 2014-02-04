@@ -8,7 +8,7 @@ define [
   'views/users/sidebar'
   'hbars!templates/maps/map'
 ], ($, _, Backbone, html2canvas, Map, User, Sidebar, newMap) ->
-  NewMap = Backbone.View.extend
+  EditMap = Backbone.View.extend
     el: "#content section"
 
     events:
@@ -17,12 +17,7 @@ define [
     initialize: (options) ->
       _.bindAll this, 'render'
       this.user = options.user
-      # this.user = new User
-      #   name: "Keith Raymond"
-      #   turn: 1
-      #   empire: 'carthage'
-      #   humanized_empire: 'Carthage'
-      #   regions: 4
+      this.empire_information = options.empire_information
 
     render: () ->
       this.$el.html newMap(this)
@@ -31,12 +26,10 @@ define [
 
     prepare_map: () ->
       this.$('#map_image').maphilight()
-      $.get "/javascripts/factions.json", (data) =>
-        @empire_information = if MapApp.development then data else JSON.parse(data)
-        @selected = this.empire_information[@user.get('empire')]
-        $.each @empire_information, (key, attrs) =>
-          additional = {empire: key, color: attrs.color, border: attrs.border}
-          @color_settlements region, additional for region in attrs.regions
+      this.selected = this.empire_information[this.user.get('empire')]
+      $.each @empire_information, (key, attrs) =>
+        additional = {color: attrs.color, border: attrs.border}
+        @color_settlements region, additional for region in attrs.regions
 
     render_sidebar: () ->
       this.sidebar = new Sidebar
@@ -44,9 +37,9 @@ define [
         empire_data: this.empire_information
         empire: this.user.get('empire')
         parent: this
-        allow_edit: true
-      this.$('#map_container').prepend this.sidebar.render().el
 
+      this.$('#map_container').prepend this.sidebar.render().el
+      this.sidebar.$el.addClass 'full-sized'
 
     color_settlements: (region, additional) ->
       $area = this.$("area##{region}")
@@ -54,8 +47,7 @@ define [
       data.fillColor = additional.color
       data.strokeColor = additional.border if additional.border?
       data.alwaysOn = true
-      $area.data('empire', additional.empire).data('maphilight', data).trigger('alwaysOn.maphilight')
-      $area.attr 'title', "#{additional.empire}: #{$area.attr('title')}"
+      $area.data('maphilight', data).trigger('alwaysOn.maphilight')
 
     update_empire_data: (region, prev_emp) ->
       empires = [this.selected.title.toLowerCase()]
@@ -69,8 +61,6 @@ define [
         else
           current_data.regions.push(region)
           this.$("area##{region}").data('empire', emp)
-
-
 
     ###=============================
                 EVENTS
@@ -91,15 +81,10 @@ define [
       $area.data('maphilight', data).trigger('alwaysOn.maphilight')
 
 
-
     save_and_generate_link: (e) ->
+      filename = "#{this.user.get('file')}.json"
       d = new Date()
-      timestamp = "#{d.getFullYear()}#{d.getMonth()}#{d.getDate()}#{d.getTime()}"
-      filename = "#{this.user.get('name').replace(/\s/, '_')}_#{this.user.get('empire')}_#{timestamp}.json"
-      this.user.set
-        return_key: "#{this.make_id()}_#{this.user.get('name').toLowerCase().replace(/\s/, '_')}_#{this.make_id()}"
-        updated_at: "#{d.getMonth()+1}/#{d.getDate()}/#{d.getFullYear()}"
-      localStorage.setItem 'return_key', this.user.get('return_key')
+      this.user.set 'updated_at', "#{d.getMonth()+1}/#{d.getDate()}/#{d.getFullYear()}"
       user_json = {
         user: this.user.toJSON()
         factions: this.empire_information
@@ -116,14 +101,4 @@ define [
           window.location = "http://twitter.com/share?url=#{url}&text=Check out my empire"
         error: (response, err, other...) ->
           $(e.target).hide().after "<p>Something went wrong :(</p>"
-
       false
-
-    make_id: () ->
-      text = ""
-      possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-
-      text += (possible.charAt(Math.floor(Math.random() * possible.length)) for num in [8..1])
-      text.toString().replace(/,/g, '')
-
-  NewMap

@@ -6,14 +6,16 @@ define [
   'models/user'
   'views/users/new',
   'views/maps/new'
+  'views/maps/edit'
   'views/maps/show'
-], ($, _, Backbone, App, User, NewUser, NewMap, ShowMap) ->
+], ($, _, Backbone, App, User, NewUser, NewMap, EditMap, ShowMap) ->
 
   AppRouter = Backbone.Router.extend
     routes:
-      'maps/new':   'maps_new'
-      'maps/:file': 'maps_show'
-      '*actions':   'default_action'
+      'maps/new':          'maps_new'
+      'maps/:file/update': 'maps_edit'
+      'maps/:file':        'maps_show'
+      '*actions':          'default_action'
 
     initialize: ->
       this.on 'route:maps_new', (actions) ->
@@ -24,9 +26,18 @@ define [
         else
           this.navigate("/", {trigger: true})
 
+      this.on 'route:maps_edit', (file) ->
+        $.get "/javascripts/saved_data/#{file}.json", (data) =>
+          data = if MapApp.development then data else JSON.parse(data)
+          user = new User(data.user).set('file', file)
+          this.edit_map = new EditMap
+            user: user
+            empire_information: data.factions
+          this.edit_map.render().el
+
       this.on 'route:maps_show', (file) ->
         $.get "/javascripts/saved_data/#{file}.json", (data) =>
-          data = JSON.parse(data)
+          data = if MapApp.development then data else JSON.parse(data)
           this.show_map = new ShowMap
             user: new User(data.user)
             empire_information: data.factions

@@ -1,0 +1,175 @@
+"namnetes": {
+    "regions": ["namnetum"],
+    "color": "67661f",
+    "border": "a63707",
+    "title": "Namnetes",
+    "playable": false
+  },
+  "carnutes": {
+    "regions": ["cenabum"],
+    "color": "357316",
+    "border": "40311c",
+    "title": "Carnutes",
+    "playable": false
+  },
+  "pictones": {
+    "regions": ["lemonum"],
+    "color": "40311c",
+    "border": "235908",
+    "title": "Pictones",
+    "playable": false
+  },
+  "vivisci": {
+    "regions": ["burdigala"],
+    "color": "827b00",
+    "border": "a63707",
+    "title": "Vivisci",
+    "playable": false
+  },
+  "ebdani": {
+    "regions": ["eblana"],
+    "color": "7f6157",
+    "border": "65a8f9",
+    "title": "Ebdani",
+    "playable": false
+  },
+  "caledones": {
+    "regions": ["eildon"],
+    "color": "7da7d9",
+    "border": "7f6157",
+    "title": "Caledones",
+    "playable": false
+  },
+  "demetae": {
+    "regions": ["moridunon"],
+    "color": "997c59",
+    "border": "315178",
+    "title": "Demetae",
+    "playable": false
+  },
+  "brigantes": {
+    "regions": ["eborakon"],
+    "color": "1a7ef8",
+    "border": "cc682a",
+    "title": "Brigantes",
+    "playable": false
+  },
+  "volcae": {
+    "regions": ["tolosa"],
+    "color": "a63707",
+    "border": "d98d1f",
+    "title": "Volcae",
+    "playable": false
+  },
+  "dumnonii": {
+    "regions": ["iska"],
+    "color": "ffca8e",
+    "border": "0d3d78",
+    "title": "Dumnonii",
+    "playable": false
+  },
+  "atrebartes": {
+    "regions": ["nemetocenna"],
+    "color": "e6d8cb",
+    "border": "804b3e",
+    "title": "Atrebartes",
+    "playable": false
+  },
+  "etruscan": {
+    "regions": ["alalia", "velathri", "ariminum"],
+    "color": "7da7d9",
+    "border": "9a0001",
+    "title": "Etruscan",
+    "playable": false
+  },
+  "massilia": {
+    "regions": ["massalia"],
+    "color": "3f3f60",
+    "border": "937c18",
+    "title": "Massilia",
+    "playable": false
+  },
+  "liguria": {
+    "regions": ["genua"],
+    "color": "b6c0a9",
+    "border": "8392c0",
+    "title": "Liguria",
+    "playable": false
+  },
+  "helvetii": {
+    "regions": ["octuduron"],
+    "color": "6b6026",
+    "border": "2a331e",
+    "title": "Helvetii",
+    "playable": false
+  },
+  "treverii": {
+    "regions": ["treverorum"],
+    "color": "4a8858",
+    "border": "d98d1f",
+    "title": "Treverii",
+    "playable": false
+  },
+  "veneti": {
+    "regions": ["patavium"],
+    "color": "9dc06f",
+    "border": "743734",
+    "title": "Veneti",
+    "playable": false
+  },
+  "marcomanni": {
+    "regions": ["uburzis"],
+    "color": "90455f",
+    "border": "470d21",
+    "title": "Marcomanni",
+    "playable": false
+  },
+  "cherusci": {
+    "regions": ["tulifurdum"],
+    "color": "ffad06",
+    "border": "c6104c",
+    "title": "Cherusci",
+    "playable": false
+  },
+  "raeti": {
+    "regions": ["koria"],
+    "color": "e6d8cb",
+    "border": "cc7762",
+    "title": "Raeti",
+    "playable": false
+  },
+  "frisii": {
+    "regions": ["flevum"],
+    "color": "90455f",
+    "border": "7f4500",
+    "title": "Frisii",
+    "playable": false
+  },
+  "syracuse": {
+    "regions": ["syracusae"],
+    "color": "08649c",
+    "border": "ffffff",
+    "title": "Syracuse",
+    "playable": false
+  },
+  "sequani": {
+    "regions": ["vesontio"],
+    "color": "4ca620",
+    "border": "5a1213",
+    "title": "Sequani",
+    "playable": false
+  },
+  "aedui": {
+    "regions": ["bibracte"],
+    "color": "732a0b",
+    "border": "357316",
+    "title": "Aedui",
+    "playable": false
+  },
+  "insubres": {
+    "regions": ["medhlan"],
+    "color": "804b3e",
+    "border": "2a331e",
+    "title": "Insubres",
+    "playable": false
+  }

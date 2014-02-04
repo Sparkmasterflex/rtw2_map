@@ -2,15 +2,16 @@
   var __slice = Array.prototype.slice;
 
   define(['jquery', 'underscore', 'backbone', 'html2canvas', 'models/map', 'models/user', 'views/users/sidebar', 'hbars!templates/maps/map'], function($, _, Backbone, html2canvas, Map, User, Sidebar, newMap) {
-    var NewMap;
-    NewMap = Backbone.View.extend({
+    var EditMap;
+    return EditMap = Backbone.View.extend({
       el: "#content section",
       events: {
         "click area.region": "highlight_region"
       },
       initialize: function(options) {
         _.bindAll(this, 'render');
-        return this.user = options.user;
+        this.user = options.user;
+        return this.empire_information = options.empire_information;
       },
       render: function() {
         var _this = this;
@@ -23,24 +24,20 @@
       prepare_map: function() {
         var _this = this;
         this.$('#map_image').maphilight();
-        return $.get("/javascripts/factions.json", function(data) {
-          _this.empire_information = MapApp.development ? data : JSON.parse(data);
-          _this.selected = _this.empire_information[_this.user.get('empire')];
-          return $.each(_this.empire_information, function(key, attrs) {
-            var additional, region, _i, _len, _ref, _results;
-            additional = {
-              empire: key,
-              color: attrs.color,
-              border: attrs.border
-            };
-            _ref = attrs.regions;
-            _results = [];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              region = _ref[_i];
-              _results.push(_this.color_settlements(region, additional));
-            }
-            return _results;
-          });
+        this.selected = this.empire_information[this.user.get('empire')];
+        return $.each(this.empire_information, function(key, attrs) {
+          var additional, region, _i, _len, _ref, _results;
+          additional = {
+            color: attrs.color,
+            border: attrs.border
+          };
+          _ref = attrs.regions;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            region = _ref[_i];
+            _results.push(_this.color_settlements(region, additional));
+          }
+          return _results;
         });
       },
       render_sidebar: function() {
@@ -48,10 +45,10 @@
           model: this.user,
           empire_data: this.empire_information,
           empire: this.user.get('empire'),
-          parent: this,
-          allow_edit: true
+          parent: this
         });
-        return this.$('#map_container').prepend(this.sidebar.render().el);
+        this.$('#map_container').prepend(this.sidebar.render().el);
+        return this.sidebar.$el.addClass('full-sized');
       },
       color_settlements: function(region, additional) {
         var $area, data;
@@ -60,8 +57,7 @@
         data.fillColor = additional.color;
         if (additional.border != null) data.strokeColor = additional.border;
         data.alwaysOn = true;
-        $area.data('empire', additional.empire).data('maphilight', data).trigger('alwaysOn.maphilight');
-        return $area.attr('title', "" + additional.empire + ": " + ($area.attr('title')));
+        return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
       },
       update_empire_data: function(region, prev_emp) {
         var empires,
@@ -105,15 +101,10 @@
         return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
       },
       save_and_generate_link: function(e) {
-        var d, filename, timestamp, user_json;
+        var d, filename, user_json;
+        filename = "" + (this.user.get('file')) + ".json";
         d = new Date();
-        timestamp = "" + (d.getFullYear()) + (d.getMonth()) + (d.getDate()) + (d.getTime());
-        filename = "" + (this.user.get('name').replace(/\s/, '_')) + "_" + (this.user.get('empire')) + "_" + timestamp + ".json";
-        this.user.set({
-          return_key: "" + (this.make_id()) + "_" + (this.user.get('name').toLowerCase().replace(/\s/, '_')) + "_" + (this.make_id()),
-          updated_at: "" + (d.getMonth() + 1) + "/" + (d.getDate()) + "/" + (d.getFullYear())
-        });
-        localStorage.setItem('return_key', this.user.get('return_key'));
+        this.user.set('updated_at', "" + (d.getMonth() + 1) + "/" + (d.getDate()) + "/" + (d.getFullYear()));
         user_json = {
           user: this.user.toJSON(),
           factions: this.empire_information
@@ -138,23 +129,8 @@
           }
         });
         return false;
-      },
-      make_id: function() {
-        var num, possible, text;
-        text = "";
-        possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        text += (function() {
-          var _results;
-          _results = [];
-          for (num = 8; num >= 1; num--) {
-            _results.push(possible.charAt(Math.floor(Math.random() * possible.length)));
-          }
-          return _results;
-        })();
-        return text.toString().replace(/,/g, '');
       }
     });
-    return NewMap;
   });
 
 }).call(this);
