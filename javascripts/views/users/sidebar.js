@@ -113,7 +113,7 @@
       },
       share_progress: function($link) {
         var url;
-        url = "" + ($link.attr('href')) + "http://ifkeith.com/%23/maps/" + (this.model.get('file'));
+        url = "" + ($link.attr('href')) + "http://totalwar.ifkeith.com/%23/maps/" + (this.model.get('file'));
         if ($link.hasClass('twitter')) url += "&text=Check out my empire";
         return window.location = url;
       },
