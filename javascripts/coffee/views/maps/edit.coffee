@@ -37,10 +37,10 @@ define [
         empire_data: this.empire_information
         empire: this.user.get('empire')
         parent: this
+        allow_edit: true
         update_turn: true
 
       this.$('#map_container').prepend this.sidebar.render().el
-      this.sidebar.$el.addClass 'full-sized'
 
     color_settlements: (region, additional) ->
       $area = this.$("area##{region}")
@@ -81,26 +81,3 @@ define [
         data.strokeColor = this.selected.border
         data.alwaysOn = true
       $area.data('maphilight', data).trigger('alwaysOn.maphilight')
-
-
-    save_and_generate_link: (e) ->
-      filename = "#{this.user.get('file')}.json"
-      d = new Date()
-      this.user.set 'updated_at', "#{d.getMonth()+1}/#{d.getDate()}/#{d.getFullYear()}"
-      user_json = {
-        user: this.user.toJSON()
-        factions: this.empire_information
-      }
-      $.ajax
-        url: '/includes/share_map.php'
-        type: 'POST'
-        dataType: 'json'
-        data:
-          content: JSON.stringify(user_json)
-          filename: filename
-        success: (response) ->
-          url = "http://totalwar.ifkeithraymond.com/%23maps/#{filename.replace(/\.json$/, '')}"
-          window.location = "http://twitter.com/share?url=#{url}&text=Check out my empire"
-        error: (response, err, other...) ->
-          $(e.target).hide().after "<p>Something went wrong :(</p>"
-      false

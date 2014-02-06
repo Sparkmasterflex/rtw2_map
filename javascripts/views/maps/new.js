@@ -1,5 +1,4 @@
 (function() {
-  var __slice = Array.prototype.slice;
 
   define(['jquery', 'underscore', 'backbone', 'html2canvas', 'models/map', 'models/user', 'views/users/sidebar', 'hbars!templates/maps/map'], function($, _, Backbone, html2canvas, Map, User, Sidebar, newMap) {
     var NewMap;
@@ -103,55 +102,6 @@
           data.alwaysOn = true;
         }
         return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
-      },
-      save_and_generate_link: function(e) {
-        var d, filename, timestamp, user_json;
-        d = new Date();
-        timestamp = "" + (d.getFullYear()) + (d.getMonth()) + (d.getDate()) + (d.getTime());
-        filename = "" + (this.user.get('name').replace(/\s/, '_')) + "_" + (this.user.get('empire')) + "_" + timestamp + ".json";
-        this.user.set({
-          return_key: "" + (this.make_id()) + "_" + (this.user.get('name').toLowerCase().replace(/\s/, '_')) + "_" + (this.make_id()),
-          updated_at: "" + (d.getMonth() + 1) + "/" + (d.getDate()) + "/" + (d.getFullYear())
-        });
-        localStorage.setItem('return_key', this.user.get('return_key'));
-        user_json = {
-          user: this.user.toJSON(),
-          factions: this.empire_information
-        };
-        $.ajax({
-          url: '/includes/share_map.php',
-          type: 'POST',
-          dataType: 'json',
-          data: {
-            content: JSON.stringify(user_json),
-            filename: filename
-          },
-          success: function(response) {
-            var url;
-            url = "http://totalwar.ifkeithraymond.com/%23maps/" + (filename.replace(/\.json$/, ''));
-            return window.location = "http://twitter.com/share?url=" + url + "&text=Check out my empire";
-          },
-          error: function() {
-            var err, other, response;
-            response = arguments[0], err = arguments[1], other = 3 <= arguments.length ? __slice.call(arguments, 2) : [];
-            return $(e.target).hide().after("<p>Something went wrong :(</p>");
-          }
-        });
-        return false;
-      },
-      make_id: function() {
-        var num, possible, text;
-        text = "";
-        possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        text += (function() {
-          var _results;
-          _results = [];
-          for (num = 8; num >= 1; num--) {
-            _results.push(possible.charAt(Math.floor(Math.random() * possible.length)));
-          }
-          return _results;
-        })();
-        return text.toString().replace(/,/g, '');
       }
     });
     return NewMap;

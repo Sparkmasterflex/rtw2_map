@@ -91,39 +91,4 @@ define [
       $area.data('maphilight', data).trigger('alwaysOn.maphilight')
 
 
-
-    save_and_generate_link: (e) ->
-      d = new Date()
-      timestamp = "#{d.getFullYear()}#{d.getMonth()}#{d.getDate()}#{d.getTime()}"
-      filename = "#{this.user.get('name').replace(/\s/, '_')}_#{this.user.get('empire')}_#{timestamp}.json"
-      this.user.set
-        return_key: "#{this.make_id()}_#{this.user.get('name').toLowerCase().replace(/\s/, '_')}_#{this.make_id()}"
-        updated_at: "#{d.getMonth()+1}/#{d.getDate()}/#{d.getFullYear()}"
-      localStorage.setItem 'return_key', this.user.get('return_key')
-      user_json = {
-        user: this.user.toJSON()
-        factions: this.empire_information
-      }
-      $.ajax
-        url: '/includes/share_map.php'
-        type: 'POST'
-        dataType: 'json'
-        data:
-          content: JSON.stringify(user_json)
-          filename: filename
-        success: (response) ->
-          url = "http://totalwar.ifkeithraymond.com/%23maps/#{filename.replace(/\.json$/, '')}"
-          window.location = "http://twitter.com/share?url=#{url}&text=Check out my empire"
-        error: (response, err, other...) ->
-          $(e.target).hide().after "<p>Something went wrong :(</p>"
-
-      false
-
-    make_id: () ->
-      text = ""
-      possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-
-      text += (possible.charAt(Math.floor(Math.random() * possible.length)) for num in [8..1])
-      text.toString().replace(/,/g, '')
-
   NewMap

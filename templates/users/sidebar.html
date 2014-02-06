@@ -15,17 +15,25 @@
   <div class="sidebar-head">
     <h3>{{ name }}'s Empire</h3>
     <h4 class='{{ empire }} with-flag'>{{ humanized_empire }}</h4>
+    <ul class='details'>
+      {{#if update_turn}}
+        <li>Current Turn: <input class='sidebar-input' type="number" value="{{ turn }}" /></li>
+      {{else}}
+        <li>Current Turn: {{ turn }}</li>
+      {{/if}}
+      <li class='region-count'>Total Regions: {{ regions }}</li>
+    </ul>
   </div>
 
   <ul class='details'>
-    {{#if update_turn}}
-      <li>Current Turn: <input class='sidebar-input' type="number" value="{{ turn }}" /></li>
-    {{else}}
-      <li>Current Turn: {{ turn }}</li>
-    {{/if}}
-    <li class='region-count'>Total Regions: {{ regions }}</li>
     {{#if allow_edit }}
-      <li><a class='save-progress share with-icon' href="#save_progress">Tweet it!</a></li>
+      <li><a class='save-progress save with-icon' href="#save_progress">Save Map</a></li>
+      <li class='red'>
+        Share:
+        <a class='twitter share icon margin-left-20' href="http://twitter.com/share?url=">Twitter</a>
+        <a class='google-plus share icon margin-left-20' href="https://plus.google.com/share?url=">Goggle+</a>
+        <a class='facebook share icon margin-left-20' href="http://www.facebook.com/sharer/sharer.php?u=">Facebook</a>
+      </li>
       <li><a class='screen-shot picture with-icon' href="#map">Generate Map Image</a></li>
       <li><a href="/" class="restart with-icon">restart</a></li>
     {{/if}}

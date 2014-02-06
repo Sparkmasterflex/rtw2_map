@@ -10,8 +10,10 @@ define [
 
     events:
       'change select#select-empire': 'select_current_empire'
+      'change input.sidebar-input': 'update_user_turn'
       "click a.screen-shot":   "take_screen_shot"
-      "click a.save-progress": "save_and_generate_link"
+      "click a.save-progress": "save_progress"
+      "click a.share":         "save_progress"
 
     region_count: 0
 
@@ -70,6 +72,28 @@ define [
 
       humanized
 
+    initial_save: () ->
+      d = new Date()
+      timestamp = "#{d.getFullYear()}#{d.getMonth()}#{d.getDate()}#{d.getTime()}"
+      this.model.set
+        file: "#{this.model.get('name').replace(/\s/, '_')}_#{this.model.get('empire')}_#{timestamp}"
+        return_key: "#{this.make_id()}_#{this.model.get('name').toLowerCase().replace(/\s/, '_')}_#{this.make_id()}"
+      localStorage.setItem 'return_key', this.model.get('return_key')
+
+    make_id: () ->
+      text = ""
+      possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+      text += (possible.charAt(Math.floor(Math.random() * possible.length)) for num in [8..1])
+      text.toString().replace(/,/g, '')
+
+    share_progress: ($link) ->
+      url = "#{$link.attr('href')}http://ifkeith.com/%23/maps/#{this.model.get('file')}"
+      url += "&text=Check out my empire" if $link.hasClass 'twitter'
+
+      window.location = url
+
+
 
 
     ###========================
@@ -84,6 +108,10 @@ define [
         title: this.selected.title
         alt: this.selected.title
       this.parent.selected = this.selected
+
+    update_user_turn: (e) ->
+      this.model.set 'turn', $(e.target).val()
+      console.log this.model.get('turn')
 
     take_screen_shot: (e) ->
       html2canvas $('#map > div'),
@@ -102,8 +130,29 @@ define [
             download: filename.replace(/\s/, '_')
       false
 
-    save_and_generate_link: (e) ->
-      this.parent.save_and_generate_link(e)
+    save_progress: (e) ->
+      $link = $(e.target)
+      d = new Date()
+      this.initial_save() unless this.model.get('file')?
+      this.model.set updated_at: "#{d.getMonth()+1}/#{d.getDate()}/#{d.getFullYear()}"
+      user_json =
+        user: this.model.toJSON()
+        factions: this.parent.empire_information
+      $.ajax
+        url: '/includes/share_map.php'
+        type: 'POST'
+        dataType: 'json'
+        data:
+          content: JSON.stringify(user_json)
+          filename: "#{this.model.get('file')}.json"
+        success: (response) =>
+          if $link.hasClass 'share'
+            @share_progress($link)
+          else
+            $(e.target).hide().after "<p>Map Saved! :P</p>"
+        error: ->
+          $(e.target).hide().after "<p>Something went wrong :(</p>" if e?
+
       false
 
   Sidebar

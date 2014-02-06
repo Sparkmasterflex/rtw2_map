@@ -7,8 +7,10 @@
       className: 'user-sidebar clearfix',
       events: {
         'change select#select-empire': 'select_current_empire',
+        'change input.sidebar-input': 'update_user_turn',
         "click a.screen-shot": "take_screen_shot",
-        "click a.save-progress": "save_and_generate_link"
+        "click a.save-progress": "save_progress",
+        "click a.share": "save_progress"
       },
       region_count: 0,
       initialize: function(options) {
@@ -85,6 +87,36 @@
         });
         return humanized;
       },
+      initial_save: function() {
+        var d, timestamp;
+        d = new Date();
+        timestamp = "" + (d.getFullYear()) + (d.getMonth()) + (d.getDate()) + (d.getTime());
+        this.model.set({
+          file: "" + (this.model.get('name').replace(/\s/, '_')) + "_" + (this.model.get('empire')) + "_" + timestamp,
+          return_key: "" + (this.make_id()) + "_" + (this.model.get('name').toLowerCase().replace(/\s/, '_')) + "_" + (this.make_id())
+        });
+        return localStorage.setItem('return_key', this.model.get('return_key'));
+      },
+      make_id: function() {
+        var num, possible, text;
+        text = "";
+        possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        text += (function() {
+          var _results;
+          _results = [];
+          for (num = 8; num >= 1; num--) {
+            _results.push(possible.charAt(Math.floor(Math.random() * possible.length)));
+          }
+          return _results;
+        })();
+        return text.toString().replace(/,/g, '');
+      },
+      share_progress: function($link) {
+        var url;
+        url = "" + ($link.attr('href')) + "http://ifkeith.com/%23/maps/" + (this.model.get('file'));
+        if ($link.hasClass('twitter')) url += "&text=Check out my empire";
+        return window.location = url;
+      },
       /*========================
                  EVENTS
       ========================
@@ -100,6 +132,10 @@
           alt: this.selected.title
         });
         return this.parent.selected = this.selected;
+      },
+      update_user_turn: function(e) {
+        this.model.set('turn', $(e.target).val());
+        return console.log(this.model.get('turn'));
       },
       take_screen_shot: function(e) {
         var _this = this;
@@ -122,8 +158,40 @@
         });
         return false;
       },
-      save_and_generate_link: function(e) {
-        this.parent.save_and_generate_link(e);
+      save_progress: function(e) {
+        var $link, d, user_json,
+          _this = this;
+        $link = $(e.target);
+        d = new Date();
+        if (this.model.get('file') == null) this.initial_save();
+        this.model.set({
+          updated_at: "" + (d.getMonth() + 1) + "/" + (d.getDate()) + "/" + (d.getFullYear())
+        });
+        user_json = {
+          user: this.model.toJSON(),
+          factions: this.parent.empire_information
+        };
+        $.ajax({
+          url: '/includes/share_map.php',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            content: JSON.stringify(user_json),
+            filename: "" + (this.model.get('file')) + ".json"
+          },
+          success: function(response) {
+            if ($link.hasClass('share')) {
+              return _this.share_progress($link);
+            } else {
+              return $(e.target).hide().after("<p>Map Saved! :P</p>");
+            }
+          },
+          error: function() {
+            if (e != null) {
+              return $(e.target).hide().after("<p>Something went wrong :(</p>");
+            }
+          }
+        });
         return false;
       }
     });

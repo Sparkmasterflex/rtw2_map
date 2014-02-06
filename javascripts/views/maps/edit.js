@@ -1,5 +1,4 @@
 (function() {
-  var __slice = Array.prototype.slice;
 
   define(['jquery', 'underscore', 'backbone', 'html2canvas', 'models/map', 'models/user', 'views/users/sidebar', 'hbars!templates/maps/map'], function($, _, Backbone, html2canvas, Map, User, Sidebar, newMap) {
     var EditMap;
@@ -46,10 +45,10 @@
           empire_data: this.empire_information,
           empire: this.user.get('empire'),
           parent: this,
+          allow_edit: true,
           update_turn: true
         });
-        this.$('#map_container').prepend(this.sidebar.render().el);
-        return this.sidebar.$el.addClass('full-sized');
+        return this.$('#map_container').prepend(this.sidebar.render().el);
       },
       color_settlements: function(region, additional) {
         var $area, data;
@@ -100,36 +99,6 @@
           data.alwaysOn = true;
         }
         return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
-      },
-      save_and_generate_link: function(e) {
-        var d, filename, user_json;
-        filename = "" + (this.user.get('file')) + ".json";
-        d = new Date();
-        this.user.set('updated_at', "" + (d.getMonth() + 1) + "/" + (d.getDate()) + "/" + (d.getFullYear()));
-        user_json = {
-          user: this.user.toJSON(),
-          factions: this.empire_information
-        };
-        $.ajax({
-          url: '/includes/share_map.php',
-          type: 'POST',
-          dataType: 'json',
-          data: {
-            content: JSON.stringify(user_json),
-            filename: filename
-          },
-          success: function(response) {
-            var url;
-            url = "http://totalwar.ifkeithraymond.com/%23maps/" + (filename.replace(/\.json$/, ''));
-            return window.location = "http://twitter.com/share?url=" + url + "&text=Check out my empire";
-          },
-          error: function() {
-            var err, other, response;
-            response = arguments[0], err = arguments[1], other = 3 <= arguments.length ? __slice.call(arguments, 2) : [];
-            return $(e.target).hide().after("<p>Something went wrong :(</p>");
-          }
-        });
-        return false;
       }
     });
   });

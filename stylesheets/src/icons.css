@@ -7,8 +7,31 @@
 .restart {
   background-image: url(/images/icons/restart.png); }
 
-.share {
-  background-image: url(/images/icons/share.png); }
+.save {
+  background-image: url(/images/icons/save.png); }
+
+.twitter {
+  background-image: url(/images/icons/twitter.png); }
+
+.google-plus {
+  background-image: url(/images/icons/google-plus.png); }
+
+.facebook {
+  background-image: url(/images/icons/facebook.png); }
+
+.icon {
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+  overflow: hidden;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: 100% auto;
+  -webkit-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  -ms-background-size: 100% auto; }
 
 .with-icon {
   padding: 5px 0 5px 24px;

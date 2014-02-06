@@ -66,6 +66,9 @@
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); }
 
+.red {
+  color: #8D0000; }
+
 #map > div {
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   -o-box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);

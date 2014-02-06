@@ -28,4 +28,6 @@
   @include box-shadow(0,0,10px,rgba(#000,0.8));
 }
 
+.red { color: #8D0000; }
+
 #map > div { @include box-shadow(0,0,10px,rgba(#000,0.8)); }

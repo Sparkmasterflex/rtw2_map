@@ -3,7 +3,19 @@
 .download { background-image: url(/images/icons/download.png); } //background-image: url(/images/icons/download.svg); }
 .picture { background-image: url(/images/icons/picture.png); } //background-image: url(/images/icons/picture.svg); }
 .restart { background-image: url(/images/icons/restart.png); } //background-image: url(/images/icons/restart.svg); }
-.share { background-image: url(/images/icons/share.png); } //background-image: url(/images/icons/share.svg); }
+.save { background-image: url(/images/icons/save.png); } //background-image: url(/images/icons/share.svg); }
+
+.twitter { background-image: url(/images/icons/twitter.png); }
+.google-plus { background-image: url(/images/icons/google-plus.png); }
+.facebook { background-image: url(/images/icons/facebook.png); }
+
+.icon {
+  background-position: center center;
+  background-repeat: no-repeat;
+  @include hidden;
+  @include square(24px);
+  @include bg-size(100%, auto);
+}
 
 .with-icon {
   padding: 5px 0 5px 24px;
