@@ -88,7 +88,7 @@ define [
       text.toString().replace(/,/g, '')
 
     share_progress: ($link) ->
-      url = "#{$link.attr('href')}http://ifkeith.com/%23/maps/#{this.model.get('file')}"
+      url = "#{$link.attr('href')}http://totalwar.ifkeith.com/%23/maps/#{this.model.get('file')}"
       url += "&text=Check out my empire" if $link.hasClass 'twitter'
 
       window.location = url
