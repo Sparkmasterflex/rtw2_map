@@ -18,7 +18,11 @@
   </div>
 
   <ul class='details'>
-    <li>Current Turn: {{ turn }}</li>
+    {{#if update_turn}}
+      <li>Current Turn: <input class='sidebar-input' type="number" value="{{ turn }}" /></li>
+    {{else}}
+      <li>Current Turn: {{ turn }}</li>
+    {{/if}}
     <li class='region-count'>Total Regions: {{ regions }}</li>
     {{#if allow_edit }}
       <li><a class='save-progress share with-icon' href="#save_progress">Tweet it!</a></li>

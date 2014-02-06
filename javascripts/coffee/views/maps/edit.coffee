@@ -37,6 +37,7 @@ define [
         empire_data: this.empire_information
         empire: this.user.get('empire')
         parent: this
+        update_turn: true
 
       this.$('#map_container').prepend this.sidebar.render().el
       this.sidebar.$el.addClass 'full-sized'
@@ -61,6 +62,7 @@ define [
         else
           current_data.regions.push(region)
           this.$("area##{region}").data('empire', emp)
+
 
     ###=============================
                 EVENTS

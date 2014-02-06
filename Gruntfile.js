@@ -13,9 +13,6 @@ module.exports = function(grunt) {
           'stylesheets/src/icons.css': 'stylesheets/sass/icons.scss',
           'stylesheets/src/responsive.css': 'stylesheets/sass/responsive.scss'
         }
-      },
-      options: {
-        'compass': true
       }
     },
 

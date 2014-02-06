@@ -1,0 +1,162 @@
+@import "http://meyerweb.com/eric/tools/css/reset/reset.css";
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0; }
+
+.clearfix {
+  display: inline-block; }
+
+/* start commented backslash hack \*/
+* html .clearfix {
+  height: 1%; }
+
+.clearfix {
+  display: block; }
+
+/* close commented backslash hack */
+html, body {
+  height: 100%; }
+
+body {
+  font-size: 62.5%;
+  font-family: Arial, Tahoma, san-serif;
+  color: #333;
+  background: #333; }
+
+section {
+  width: 100%;
+  max-width: 120em;
+  margin: 0 auto; }
+
+h1, .h1 {
+  font-size: 3.6em; }
+
+h2, .h2 {
+  font-size: 3.0em; }
+
+h3, .h3 {
+  font-size: 2.4em; }
+
+h4, .h4 {
+  font-size: 2.0em; }
+
+p, li, a {
+  font-size: 1.6em; }
+  p p, p li, p a, li p, li li, li a, a p, a li, a a {
+    font-size: 1em; }
+
+a {
+  color: #8D0000;
+  text-decoration: none; }
+  a:hover {
+    color: #666;
+    text-decoration: underline; }
+
+table thead {
+  background: rgba(51, 51, 51, 0.6);
+  color: #fff; }
+  table thead td {
+    border-right: 1px solid #999; }
+table tbody tr:nth-child(even) {
+  background: rgba(153, 153, 153, 0.5); }
+table td {
+  font-size: 1.6em;
+  padding: 0.35em 0.5em; }
+  table td a {
+    font-size: 1em; }
+
+.ta-left {
+  text-align: left; }
+
+.ta-right {
+  text-align: right; }
+
+.ta-center {
+  text-align: center; }
+
+ul.details li {
+  padding: 0.75em 0;
+  margin: 0;
+  border-top: 1px solid #e1e1e1;
+  border-bottom: 1px solid #666; }
+  ul.details li:first-child {
+    border-top: none; }
+  ul.details li:last-child {
+    border-bottom: none; }
+
+header {
+  margin-bottom: 3em;
+  background-color: rgba(51, 51, 51, 0.4);
+  background: -moz-linear-gradient(top, rgba(51, 51, 51, 0.4) 0%, rgba(51, 51, 51, 0.6) 100%);
+  background: -webkit-linear-gradient(top, rgba(51, 51, 51, 0.4) 0%, rgba(51, 51, 51, 0.6) 100%);
+  background: -o-linear-gradient(top, rgba(51, 51, 51, 0.4) 0%, rgba(51, 51, 51, 0.6) 100%);
+  background: -ms-linear-gradient(top, rgba(51, 51, 51, 0.4) 0%, rgba(51, 51, 51, 0.6) 100%);
+  background: linear-gradient(top, rgba(51, 51, 51, 0.4) 0%, rgba(51, 51, 51, 0.6) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(51, 51, 51, 0.4)), color-stop(100%, rgba(51, 51, 51, 0.6)));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$c1', endColorstr='$c2',GradientType=0 );
+  border-bottom: 2px solid #333; }
+
+h1.logo {
+  float: left;
+  width: 30%;
+  background: url(/images/rome-2-logo.png) no-repeat left center;
+  height: 110px;
+  text-indent: -9999px;
+  overflow: hidden; }
+
+h2.share-header {
+  float: left;
+  padding: 0.35em;
+  margin: 1em 0;
+  color: #fff; }
+
+header, #content {
+  position: relative;
+  z-index: 300; }
+
+#map_container {
+  position: relative; }
+  #map_container aside.user-sidebar {
+    position: absolute;
+    top: 0;
+    right: 3em;
+    z-index: 200; }
+    #map_container aside.user-sidebar .sidebar-group {
+      width: 28em;
+      padding: 2em;
+      margin: 0 0 2em; }
+      #map_container aside.user-sidebar .sidebar-group .regions-list {
+        margin-top: 0.5em; }
+        #map_container aside.user-sidebar .sidebar-group .regions-list ul li {
+          margin: 0.25em 0; }
+        #map_container aside.user-sidebar .sidebar-group .regions-list ul {
+          max-height: 14em;
+          overflow-y: auto; }
+
+.selected {
+  margin: 0 0 1.5em; }
+  .selected img, .selected h3 {
+    float: left; }
+  .selected img {
+    width: 20%; }
+  .selected h3 {
+    width: 70%;
+    padding: 0.65em 0.5em; }
+
+.form-header {
+  margin: 0 0 0.25em;
+  padding: 0 0 0.25em;
+  text-align: center;
+  border-bottom: 1px solid #333; }
+
+.slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; }
+  .slideshow img {
+    width: 100%; }

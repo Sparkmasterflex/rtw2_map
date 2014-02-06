@@ -20,7 +20,9 @@ define [
       this.empire_data = options.empire_data
       this.empire = options.empire
       this.parent = options.parent
-      this.model.set('allow_edit', options.allow_edit) if options.allow_edit?
+      this.model.set
+        allow_edit: options.allow_edit
+        update_turn: options.update_turn
       this.region_count = parseInt(this.model.get('regions'))
       this.model.bind 'change:regions', this.update_region_count
 

@@ -31,7 +31,13 @@ input, select {
   background: rgba(#999, 0.5);
   border: 1px solid #333;
   @include border-radius(2px);
+  &.sidebar-input {
+    font-size: 1em;
+    width: 20%;
+    float: none;
+  }
 }
+
 
 input[type=submit] {
   float: none;
