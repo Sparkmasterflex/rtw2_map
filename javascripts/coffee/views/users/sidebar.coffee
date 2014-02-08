@@ -101,6 +101,7 @@ define [
     ========================###
     select_current_empire: (e) ->
       val = $(e.target).val()
+      prev_selected = this.selected
       this.selected = this.empire_data[val]
       this.$('.selected h3').html this.selected.title
       this.$('.selected img').attr
@@ -108,10 +109,9 @@ define [
         title: this.selected.title
         alt: this.selected.title
       this.parent.selected = this.selected
+      this.parent.highlight_selected_regions prev_selected
 
-    update_user_turn: (e) ->
-      this.model.set 'turn', $(e.target).val()
-      console.log this.model.get('turn')
+    update_user_turn: (e) -> this.model.set 'turn', $(e.target).val()
 
     take_screen_shot: (e) ->
       html2canvas $('#map > div'),

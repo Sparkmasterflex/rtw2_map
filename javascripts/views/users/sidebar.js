@@ -122,8 +122,9 @@
       ========================
       */
       select_current_empire: function(e) {
-        var val;
+        var prev_selected, val;
         val = $(e.target).val();
+        prev_selected = this.selected;
         this.selected = this.empire_data[val];
         this.$('.selected h3').html(this.selected.title);
         this.$('.selected img').attr({
@@ -131,11 +132,11 @@
           title: this.selected.title,
           alt: this.selected.title
         });
-        return this.parent.selected = this.selected;
+        this.parent.selected = this.selected;
+        return this.parent.highlight_selected_regions(prev_selected);
       },
       update_user_turn: function(e) {
-        this.model.set('turn', $(e.target).val());
-        return console.log(this.model.get('turn'));
+        return this.model.set('turn', $(e.target).val());
       },
       take_screen_shot: function(e) {
         var _this = this;

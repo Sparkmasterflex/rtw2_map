@@ -12,7 +12,7 @@ define [
     el: "#content section"
 
     events:
-      "click area.region":     "highlight_region"
+      "click area.region": "highlight_region"
 
     initialize: (options) ->
       _.bindAll this, 'render'
@@ -26,7 +26,11 @@ define [
 
     render: () ->
       this.$el.html newMap(this)
-      $.when(this.prepare_map()).then => @render_sidebar()
+      options =
+        parent: this
+        allow_edit: true
+        update_turn: false
+      $.when(this.prepare_map()).then => @render_sidebar options
       this
 
     prepare_map: () ->
@@ -35,60 +39,8 @@ define [
         @empire_information = if MapApp.development then data else JSON.parse(data)
         @selected = this.empire_information[@user.get('empire')]
         $.each @empire_information, (key, attrs) =>
-          additional = {empire: key, color: attrs.color, border: attrs.border}
+          additional = {empire: key, color: attrs.color, border: attrs.border, playable: attrs.playable, current: (attrs is @selected)}
           @color_settlements region, additional for region in attrs.regions
-
-    render_sidebar: () ->
-      this.sidebar = new Sidebar
-        model: this.user
-        empire_data: this.empire_information
-        empire: this.user.get('empire')
-        parent: this
-        allow_edit: true
-      this.$('#map_container').prepend this.sidebar.render().el
-
-
-    color_settlements: (region, additional) ->
-      $area = this.$("area##{region}")
-      data = $area.data('maphilight') or {}
-      data.fillColor = additional.color
-      data.strokeColor = additional.border if additional.border?
-      data.alwaysOn = true
-      $area.data('empire', additional.empire).data('maphilight', data).trigger('alwaysOn.maphilight')
-      $area.attr 'title', "#{additional.empire}: #{$area.attr('title')}"
-
-    update_empire_data: (region, prev_emp) ->
-      empires = [this.selected.title.toLowerCase()]
-      empires.push(prev_emp) if prev_emp?
-      _.each empires, (emp) =>
-        current_data = this.empire_information[emp]
-        i = _.indexOf current_data.regions, region
-        if i >= 0
-          current_data.regions.splice(i, 1)
-          this.$("area##{region}").removeAttr('data-empire')
-        else
-          current_data.regions.push(region)
-          this.$("area##{region}").data('empire', emp)
-
-
-
-    ###=============================
-                EVENTS
-    =============================###
-    highlight_region: (e) ->
-      $area = $(e.target)
-      data = $area.data('maphilight') or {}
-      this.sidebar.add_remove_region $area.attr('id') unless data.fillColor? and data.fillColor isnt this.selected.color
-      this.update_empire_data $area.attr('id'), $area.data('empire')
-      if data.fillColor
-        delete data.fillColor
-        delete data.strokeColor
-        data.alwaysOn = false
-      else
-        data.fillColor = this.selected.color
-        data.strokeColor = this.selected.border
-        data.alwaysOn = true
-      $area.data('maphilight', data).trigger('alwaysOn.maphilight')
-
+          @previous = @selected
 
   NewMap

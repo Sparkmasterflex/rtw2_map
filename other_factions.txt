@@ -172,4 +172,235 @@
     "border": "2a331e",
     "title": "Insubres",
     "playable": false
+  },
+  "gaetui": {
+    "regions": ["migdol"],
+    "color": "d5b04f",
+    "border": "b20000",
+    "title": "Gaetui",
+    "playable": false
+  },
+  "edetani": {
+    "regions": ["arse"],
+    "color": "ed742e",
+    "border": "758835",
+    "title": "Edetani",
+    "playable": false
+  },
+  "libyia": {
+    "regions": ["thapsus", "lepcis", "macomades"],
+    "color": "4b1b1b",
+    "border": "f3edec",
+    "title": "Libyia",
+    "playable": false
+  },
+  "celtici": {
+    "regions": ["ebora"],
+    "color": "96663e",
+    "border": "758835",
+    "title": "Celtici",
+    "playable": false
+  },
+  "turdetani": {
+    "regions": ["kartuba"],
+    "color": "ffae57",
+    "border": "7b2e24",
+    "title": "Turdetani",
+    "playable": false
+  },
+  "arevaci": {
+    "regions": ["numantia"],
+    "color": "c73926",
+    "border": "e3b32c",
+    "title": "Arevaci",
+    "playable": false
+  },
+  "nova_carthago": {
+    "regions": ["gadira", "ibossim", "tingis", "iol"],
+    "color": "791e1e",
+    "border": "f3edec",
+    "title": "Nova Carthago",
+    "playable": false
+  },
+  "masaesyli": {
+    "regions": ["dimmidi"],
+    "color": "676d7e",
+    "border": "a2774c",
+    "title": "Masaesyli",
+    "playable": false
+  },
+  "galleaci": {
+    "regions": ["brigantium"],
+    "color": "d68734",
+    "border": "fffefc",
+    "title": "Galleaci",
+    "playable": false
+  },
+  "cantabri": {
+    "regions": ["aracillum", "tarraco"],
+    "color": "ffc99c",
+    "border": "7b2e24",
+    "title": "Cantabri",
+    "playable": false
+  },
+  "garamantia": {
+    "regions": ["cydamus", "garama"],
+    "color": "a2774c",
+    "border": "376032",
+    "title": "Garamantia",
+    "playable": false
+  },
+  "lusitani": {
+    "regions": ["olisipo"],
+    "color": "e3b32c",
+    "border": "7b2e24",
+    "title": "Lusitani",
+    "playable": false
+  },
+  "lugii": {
+    "regions": ["budorgis", "belz"],
+    "color": "ff9619",
+    "border": "470d21",
+    "title": "Lugii",
+    "playable": false
+  },
+  "nori": {
+    "regions": ["noreia"],
+    "color": "957b74",
+    "border": "506631",
+    "title": "Nori",
+    "playable": false
+  },
+  "bastarnae": {
+    "regions": ["petrodava"],
+    "color": "743734",
+    "border": "e6d8cb",
+    "title": "Bastarnae",
+    "playable": false
+  },
+  "anartes": {
+    "regions": ["galic"],
+    "color": "eee19d",
+    "border": "2a331e",
+    "title": "Anartes",
+    "playable": false
+  },
+  "budini": {
+    "regions": ["tur"],
+    "color": "ffdd38",
+    "border": "2d3e58",
+    "title": "Budini",
+    "playable": false
+  },
+  "biephi": {
+    "regions": ["zarmizegetusa"],
+    "color": "ab7314",
+    "border": "45220f",
+    "title": "Biephi",
+    "playable": false
+  },
+  "gutones": {
+    "regions": ["ascaucalis"],
+    "color": "c65f82",
+    "border": "ffb001",
+    "title": "Gutones",
+    "playable": false
+  },
+  "ardiaei": {
+    "regions": ["epidamnos"],
+    "color": "e3dcc9",
+    "border": "677296",
+    "title": "Ardiaei",
+    "playable": false
+  },
+  "rugii": {
+    "regions": ["rhougion"],
+    "color": "9c5a20",
+    "border": "7a1638",
+    "title": "Rugii",
+    "playable": false
+  },
+  "getae": {
+    "regions": ["malva"],
+    "color": "783c1a",
+    "border": "45220f",
+    "title": "Getae",
+    "playable": false
+  },
+  "aestii": {
+    "regions": ["mons-regius"],
+    "color": "cca9a2",
+    "border": "eee19d",
+    "title": "Aestii",
+    "playable": false
+  },
+  "breuci": {
+    "regions": ["segestica"],
+    "color": "babfaf",
+    "border": "432010",
+    "title": "Breuci",
+    "playable": false
+  },
+  "scordisci": {
+    "regions": ["singidun"],
+    "color": "b6c0a9",
+    "border": "664036",
+    "title": "Scordisci",
+    "playable": false
+  },
+  "catiaroi": {
+    "regions": ["olbia"],
+    "color": "7ca4b5",
+    "border": "2d3e58",
+    "title": "Catiaroi",
+    "playable": false
+  },
+  "delmetae": {
+    "regions": ["iader"],
+    "color": "c9cfe3",
+    "border": "b0ad8a",
+    "title": "Delmetae",
+    "playable": false
+  },
+  "daorsi": {
+    "regions": ["delminium"],
+    "color": "968e76",
+    "border": "92bce5",
+    "title": "Daorsi",
+    "playable": false
+  },
+  "cimbri": {
+    "regions": ["alabu"],
+    "color": "ff8a00",
+    "border": "470d21",
+    "title": "Cimbri",
+    "playable": false
+  },
+  "eravisci": {
+    "regions": ["akink"],
+    "color": "506631",
+    "border": "e6d8cb",
+    "title": "Eravisci",
+    "playable": false
+  },
+  "triballi": {
+    "regions": ["naissos"],
+    "color": "69804a",
+    "border": "743734",
+    "title": "Triballi",
+    "playable": false
+  },
+  "tylis": {
+    "regions": ["antheia"],
+    "color": "3e8570",
+    "border": "c45617",
+    "title": "Tylis",
+    "playable": false
+  },
+  "odryssia": {
+    "regions": ["odessos"],
+    "color": "bde1e1",
+    "border": "c45617",
+    "title": "Odryssia",
+    "playable": false
   }

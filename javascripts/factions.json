@@ -109,9 +109,9 @@
     "playable": true
   },
   "boii": {
-    "regions": ["casurgis"],
-    "color": "d5d6a6",
-    "border": "a5806c",
+    "regions": ["casurgis", "istros"],
+    "color": "92b167",
+    "border": "743634",
     "title": "Boii",
     "playable": true
   },

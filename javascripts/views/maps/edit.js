@@ -1,8 +1,8 @@
 (function() {
 
-  define(['jquery', 'underscore', 'backbone', 'html2canvas', 'models/map', 'models/user', 'views/users/sidebar', 'hbars!templates/maps/map'], function($, _, Backbone, html2canvas, Map, User, Sidebar, newMap) {
+  define(['jquery', 'underscore', 'backbone', 'html2canvas', 'models/map', 'models/user', 'views/maps/map_view', 'views/users/sidebar', 'hbars!templates/maps/map'], function($, _, Backbone, html2canvas, Map, User, MapView, Sidebar, newMap) {
     var EditMap;
-    return EditMap = Backbone.View.extend({
+    EditMap = Backbone.View.extend({
       el: "#content section",
       events: {
         "click area.region": "highlight_region"
@@ -13,10 +13,16 @@
         return this.empire_information = options.empire_information;
       },
       render: function() {
-        var _this = this;
+        var options,
+          _this = this;
         this.$el.html(newMap(this));
+        options = {
+          parent: this,
+          allow_edit: true,
+          update_turn: false
+        };
         $.when(this.prepare_map()).then(function() {
-          return _this.render_sidebar();
+          return _this.render_sidebar(options);
         });
         return this;
       },
@@ -38,69 +44,9 @@
           }
           return _results;
         });
-      },
-      render_sidebar: function() {
-        this.sidebar = new Sidebar({
-          model: this.user,
-          empire_data: this.empire_information,
-          empire: this.user.get('empire'),
-          parent: this,
-          allow_edit: true,
-          update_turn: true
-        });
-        return this.$('#map_container').prepend(this.sidebar.render().el);
-      },
-      color_settlements: function(region, additional) {
-        var $area, data;
-        $area = this.$("area#" + region);
-        data = $area.data('maphilight') || {};
-        data.fillColor = additional.color;
-        if (additional.border != null) data.strokeColor = additional.border;
-        data.alwaysOn = true;
-        return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
-      },
-      update_empire_data: function(region, prev_emp) {
-        var empires,
-          _this = this;
-        empires = [this.selected.title.toLowerCase()];
-        if (prev_emp != null) empires.push(prev_emp);
-        return _.each(empires, function(emp) {
-          var current_data, i;
-          current_data = _this.empire_information[emp];
-          i = _.indexOf(current_data.regions, region);
-          if (i >= 0) {
-            current_data.regions.splice(i, 1);
-            return _this.$("area#" + region).removeAttr('data-empire');
-          } else {
-            current_data.regions.push(region);
-            return _this.$("area#" + region).data('empire', emp);
-          }
-        });
-      },
-      /*=============================
-                  EVENTS
-      =============================
-      */
-      highlight_region: function(e) {
-        var $area, data;
-        $area = $(e.target);
-        data = $area.data('maphilight') || {};
-        if (!((data.fillColor != null) && data.fillColor !== this.selected.color)) {
-          this.sidebar.add_remove_region($area.attr('id'));
-        }
-        this.update_empire_data($area.attr('id'), $area.data('empire'));
-        if (data.fillColor) {
-          delete data.fillColor;
-          delete data.strokeColor;
-          data.alwaysOn = false;
-        } else {
-          data.fillColor = this.selected.color;
-          data.strokeColor = this.selected.border;
-          data.alwaysOn = true;
-        }
-        return $area.data('maphilight', data).trigger('alwaysOn.maphilight');
       }
     });
+    return EditMap;
   });
 
 }).call(this);

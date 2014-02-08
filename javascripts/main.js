@@ -42,7 +42,7 @@
             fillOpacity: 0.5,
             stroke: true,
             strokeColor: '999999',
-            strokeOpacity: 1,
+            strokeOpacity: 0.8,
             strokeWidth: 1,
             fade: true,
             alwaysOn: false,
@@ -63,12 +63,14 @@
     }
   });
 
-  require(['app', 'cycle2'], function(App, cycle) {
+  require(['app', 'cycle2', 'views/maps/map_view', 'views/maps/new', 'views/maps/edit'], function(App, cycle, MapView, NewMap, EditMap) {
     $('.slideshow').cycle({
       delay: 4000,
       speed: 1500,
       loader: 'wait'
     });
+    _.extend(NewMap.prototype, MapView);
+    _.extend(EditMap.prototype, MapView);
     window.MapApp = App;
     return MapApp.initialize();
   });
