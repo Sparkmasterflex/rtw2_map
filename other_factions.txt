@@ -173,11 +173,11 @@
     "title": "Insubres",
     "playable": false
   },
-  "gaetui": {
+  "gaetuli": {
     "regions": ["migdol"],
     "color": "d5b04f",
     "border": "b20000",
-    "title": "Gaetui",
+    "title": "Gaetuli",
     "playable": false
   },
   "edetani": {
