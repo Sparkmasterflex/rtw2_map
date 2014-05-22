@@ -13,6 +13,7 @@
         "click a.share": "save_progress"
       },
       region_count: 0,
+      option_group: null,
       initialize: function(options) {
         _.bindAll(this, 'render', 'update_region_count');
         this.empire_data = options.empire_data;
@@ -33,11 +34,34 @@
       },
       setup_empire_select: function() {
         var _this = this;
-        return _.each(this.empire_data, function(value, key) {
+        return $.each(this.empire_data, function(key, attrs) {
           var $option;
-          $option = $("<option value='" + key + "'>" + value.title + "</option>");
-          if (key === _this.empire) $option.attr('selected', true);
-          return _this.$('select#select-empire').append($option);
+          if (attrs.playable) {
+            if (attrs.expansion !== _this.option_group) {
+              if (_this.$optgroup != null) {
+                _this.$('select#select-empire').append(_this.$optgroup);
+              }
+              _this.$optgroup = $("<optgroup label='" + attrs.expansion + "'></optgroup>");
+              _this.option_group = attrs.expansion;
+            }
+            $option = $("<option value='" + key + "'>" + (key.charAt(0).toUpperCase()) + (key.slice(1)) + "</option>");
+            if (key === _this.model.get('empire')) $option.attr('selected', true);
+            return _this.$optgroup.append($option);
+          } else {
+            if (_this.option_group != null) {
+              if (_this.$optgroup != null) {
+                _this.$('select#select-empire').append(_this.$optgroup);
+              }
+              _this.option_group = null;
+            }
+            if (!(_this.$('optgroup.non-playable').length > 0)) {
+              _this.$optgroup = $("<optgroup class='non-playable' label='Non-Playable'></optgroup>");
+              _this.$('select#select-empire').append(_this.$optgroup);
+            }
+            $option = $("<option value='" + key + "'>" + (key.charAt(0).toUpperCase()) + (key.slice(1)) + "</option>");
+            if (key === _this.model.get('empire')) $option.attr('selected', true);
+            return _this.$optgroup.append($option);
+          }
         });
       },
       append_controlled_regions: function() {
@@ -92,7 +116,7 @@
         d = new Date();
         timestamp = "" + (d.getFullYear()) + (d.getMonth()) + (d.getDate()) + (d.getTime());
         this.model.set({
-          file: "" + (this.model.get('name').replace(/\s/, '_')) + "_" + (this.model.get('empire')) + "_" + timestamp,
+          file: "" + timestamp + "_" + (this.model.get('name').replace(/\s/, '_')) + "_" + (this.model.get('empire')),
           return_key: "" + (this.make_id()) + "_" + (this.model.get('name').toLowerCase().replace(/\s/, '_')) + "_" + (this.make_id())
         });
         return localStorage.setItem('return_key', this.model.get('return_key'));

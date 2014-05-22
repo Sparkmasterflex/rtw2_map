@@ -1,8 +1,10 @@
 <?php
   $recent = array();
   $i = 0;
-  foreach(glob($_SERVER['DOCUMENT_ROOT']."/javascripts/saved_data/*.json") as $map) {
-    if($i < 6) {
+  $files = glob($_SERVER['DOCUMENT_ROOT']."/javascripts/saved_data/*.json");
+  rsort($files);
+  foreach($files as $map) {
+    if($i < 10) {
       $json = json_decode(file_get_contents($map), true);
       $user_map = array(
         'link'             => preg_replace("/\.json$/", "", basename($map)),

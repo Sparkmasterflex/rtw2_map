@@ -10,6 +10,8 @@ define [
   NewUser = Backbone.View.extend
     el: "#content section"
 
+    option_group: null
+
     events:
       "submit form#new-user": "create_user"
 
@@ -36,9 +38,20 @@ define [
         @.$('select#empire').empty()
         data = if MapApp.development then data else JSON.parse(data)
         $.each data, (key, attrs) =>
-          $option = $("<option value='#{key}'>#{key.charAt(0).toUpperCase()}#{key.slice(1)}</option>")
-          $option.attr('selected', true) if key is @model.get('empire')
-          @.$('select#empire').append $option
+          if attrs.playable
+            if attrs.expansion isnt @option_group
+              @.$('select#empire').append @$optgroup if @$optgroup?
+
+              @$optgroup = $("<optgroup label='#{attrs.expansion}'></optgroup>")
+              @option_group = attrs.expansion
+
+            $option = $("<option value='#{key}'>#{key.charAt(0).toUpperCase()}#{key.slice(1)}</option>")
+            $option.attr('selected', true) if key is @model.get('empire')
+            @$optgroup.append $option
+          else if @option_group?
+            @.$('select#empire').append @$optgroup if @$optgroup?
+            @option_group = null
+
 
     get_recent_maps: () ->
       $.ajax
@@ -60,6 +73,16 @@ define [
     setup_returning_user: (map) ->
       returning = new ReturningMap model: map
       $('.previous-maps').prepend returning.render().el
+
+    # build_option_group: (opt_group) ->
+    #   str = ""
+    #   if opt_group isnt this.option_group
+    #     str += "</optgroup>" if this.option_group?
+    #     str += "<optgroup label='#{opt_group}'>"
+    #     this.option_group = opt_group
+
+    #   str
+
 
     ###=======================
               EVENTS

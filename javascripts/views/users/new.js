@@ -4,6 +4,7 @@
     var NewUser;
     NewUser = Backbone.View.extend({
       el: "#content section",
+      option_group: null,
       events: {
         "submit form#new-user": "create_user"
       },
@@ -26,9 +27,25 @@
           data = MapApp.development ? data : JSON.parse(data);
           return $.each(data, function(key, attrs) {
             var $option;
-            $option = $("<option value='" + key + "'>" + (key.charAt(0).toUpperCase()) + (key.slice(1)) + "</option>");
-            if (key === _this.model.get('empire')) $option.attr('selected', true);
-            return _this.$('select#empire').append($option);
+            if (attrs.playable) {
+              if (attrs.expansion !== _this.option_group) {
+                if (_this.$optgroup != null) {
+                  _this.$('select#empire').append(_this.$optgroup);
+                }
+                _this.$optgroup = $("<optgroup label='" + attrs.expansion + "'></optgroup>");
+                _this.option_group = attrs.expansion;
+              }
+              $option = $("<option value='" + key + "'>" + (key.charAt(0).toUpperCase()) + (key.slice(1)) + "</option>");
+              if (key === _this.model.get('empire')) {
+                $option.attr('selected', true);
+              }
+              return _this.$optgroup.append($option);
+            } else if (_this.option_group != null) {
+              if (_this.$optgroup != null) {
+                _this.$('select#empire').append(_this.$optgroup);
+              }
+              return _this.option_group = null;
+            }
           });
         });
       },

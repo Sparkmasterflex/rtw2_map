@@ -8,6 +8,7 @@ define [
     tagName: 'aside'
     className: 'user-sidebar clearfix'
 
+
     events:
       'change select#select-empire': 'select_current_empire'
       'change input.sidebar-input': 'update_user_turn'
@@ -16,6 +17,7 @@ define [
       "click a.share":         "save_progress"
 
     region_count: 0
+    option_group: null
 
     initialize: (options) ->
       _.bindAll this, 'render', 'update_region_count'
@@ -35,10 +37,29 @@ define [
       this
 
     setup_empire_select: ->
-      _.each this.empire_data, (value, key) =>
-        $option = $("<option value='#{key}'>#{value.title}</option>")
-        $option.attr('selected', true) if key is this.empire
-        @.$('select#select-empire').append $option
+      $.each this.empire_data, (key, attrs) =>
+        if attrs.playable
+          if attrs.expansion isnt @option_group
+            @.$('select#select-empire').append @$optgroup if @$optgroup?
+            @$optgroup = $("<optgroup label='#{attrs.expansion}'></optgroup>")
+            @option_group = attrs.expansion
+
+          $option = $("<option value='#{key}'>#{key.charAt(0).toUpperCase()}#{key.slice(1)}</option>")
+          $option.attr('selected', true) if key is @model.get('empire')
+          @$optgroup.append $option
+        else
+          if @option_group?
+            @.$('select#select-empire').append @$optgroup if @$optgroup?
+            @option_group = null
+
+          unless @.$('optgroup.non-playable').length > 0
+            @$optgroup = $("<optgroup class='non-playable' label='Non-Playable'></optgroup>")
+            @.$('select#select-empire').append @$optgroup
+
+          $option = $("<option value='#{key}'>#{key.charAt(0).toUpperCase()}#{key.slice(1)}</option>")
+          $option.attr('selected', true) if key is @model.get('empire')
+          @$optgroup.append $option
+
 
     append_controlled_regions: ->
       this.$('.regions-list ul').empty()
@@ -76,7 +97,7 @@ define [
       d = new Date()
       timestamp = "#{d.getFullYear()}#{d.getMonth()}#{d.getDate()}#{d.getTime()}"
       this.model.set
-        file: "#{this.model.get('name').replace(/\s/, '_')}_#{this.model.get('empire')}_#{timestamp}"
+        file: "#{timestamp}_#{this.model.get('name').replace(/\s/, '_')}_#{this.model.get('empire')}"
         return_key: "#{this.make_id()}_#{this.model.get('name').toLowerCase().replace(/\s/, '_')}_#{this.make_id()}"
       localStorage.setItem 'return_key', this.model.get('return_key')
 
